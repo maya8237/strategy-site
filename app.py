@@ -60,6 +60,7 @@ def index():
             "<p>Hello, {}! You're logged in! Email: {}</p>"
             "<div><p>Google Profile Picture:</p>"
             '<img src="{}" alt="Google profile pic"></img></div>'
+            '<a class="button" href="/form">Form</a>'
             '<a class="button" href="/logout">Logout</a>'.format(
                 current_user.name, current_user.email, current_user.profile_pic
             )
@@ -148,6 +149,21 @@ def callback():
 
     # Send user back to homepage
     return redirect(url_for("index"))
+
+
+@app.route("/form", methods=["GET", "POST"])
+@login_required
+def form():
+    if request.method == "POST":
+        # getting input with name = fname in HTML form
+        climb_lvl_auto = request.form.get("auto_climb_lvl")
+        # getting input with name = lname in HTML form
+        num_balls_auto = request.form.get("auto_num_balls")
+        ret_str = current_user.name + " CLIMB LEVEL: " + str(climb_lvl_auto) + \
+              " AUTO NUM OF BALLS: " + str(num_balls_auto)
+        return ret_str
+
+    return render_template("form.html")
 
 
 @app.route("/logout")
