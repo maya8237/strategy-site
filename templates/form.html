@@ -1,14 +1,86 @@
 <html dir=rtl>
 <form action="/form" method="post">
-<center>
-<p style="font-family:calibri">
-<label for="autoclimblvl">רמת טיפוס באוטונומי:</label>
-<input type="number" id="autoclimblvl" name="autoclimblvl" placeholder="">
-<br></br>
-<label for="autonumballs">מס' כדורים שנקלעו באוטונומי:</label>
-<input type="number" id="autonumballs" name="autonumballs" placeholder="">
-</p>
-<button type="submit">Submit</button>
-</center>
+    <div style="font-family:calibri;text-align:center">
+        <label for="scouter_name">שם הסקאוטר:</label>
+        <input type="text" id="scouter_name" name="scouter_name" placeholder="" value="" required>
+        <button type=button" onclick="changeDefault()">GMAIL NAME</button>
+        <script type="text/javascript">
+            function changeDefault() {
+                var name = "{{ variable }}";
+                document.getElementById("scouter_name").value = name;
+            }
+        </script>
+        <br><br>
+        <label for="team_num">מס' קבוצה:</label>
+        <input type="number" id="team_num" name="team_num" placeholder="" required>
+        <br><br>
+        <label for="game_num">מס' משחק:</label>
+        <input type="number" id="game_num" name="game_num" placeholder="" required>
+        <br><br>
+        <label for="game_type">סוג משחק:</label>
+        <!-- <input type="text" id="game_type" name="game_type" placeholder=""> -->
+            <select name="game_type" id="game_type" required>
+              <option disabled selected value> -- select an option -- </option>
+              <option value="PRACTICE">PRACTICE</option>
+              <option value="QUALIFIER">QUALIFIER</option>
+              <option value="SEMI-FINAL">SEMI-FINAL</option>
+              <option value="FINAL">FINAL</option>
+            </select>
+        <br><br>
+    </div>
+    <div style="font-family:calibri;text-align:center">
+        <p>AUTONOMOUS</p>
+        <label for="starter_location">מיקום התחלתי:</label>
+            <select name="starter_location" id="starter_location" required>
+              <option disabled selected value> -- select an option -- </option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+        <br><br>
+        <label for="did_try_to_drop_auto">האם הפיל כלי משחק \ ניסה להניח ונכשל:</label>
+            <select name="did_try_to_drop_auto" id="did_try_to_drop_auto" required>
+              <option disabled selected value> -- select an option -- </option>
+              <option value="YES">כן</option>
+              <option value="NO">לא</option>
+            </select>
+        <br><br>
+        <label for="did_try_to_climb_auto">האם ניסה לטפס על הנדנדה:</label>
+            <select name="did_try_to_climb_auto" id="did_try_to_climb_auto" required>
+              <option disabled selected value> -- select an option -- </option>
+              <option value="YES">כן</option>
+              <option value="NO">לא</option>
+            </select>
+        <br><br>
+    </div>
+    <div style="font-family:calibri;text-align:center">
+        <p>TELEOP</p>
+<!--        <label for="starter_location">מיקום התחלתי:</label>-->
+<!--            <select name="starter_location" id="starter_location" required>-->
+<!--              <option disabled selected value> &#45;&#45; select an option &#45;&#45; </option>-->
+<!--              <option value="PRACTICE">כן</option>-->
+<!--              <option value="QUALIFIER">לא</option>-->
+<!--            </select>-->
+<!--        <br><br>-->
+<!--        <label for="did_try_to_drop_auto">האם הפיל כלי משחק \ ניסה להניח ונכשל:</label>-->
+<!--            <select name="did_try_to_drop_auto" id="did_try_to_drop_auto" required>-->
+<!--              <option disabled selected value> &#45;&#45; select an option &#45;&#45; </option>-->
+<!--              <option value="YES">כן</option>-->
+<!--              <option value="NO">לא</option>-->
+<!--            </select>-->
+<!--        <br><br>-->
+<!--        <label for="did_try_to_climb_auto">האם ניסה לטפס על הנדנדה:</label>-->
+<!--            <select name="did_try_to_climb_auto" id="did_try_to_climb_auto" required>-->
+<!--              <option disabled selected value> &#45;&#45; select an option &#45;&#45; </option>-->
+<!--              <option value="YES">כן</option>-->
+<!--              <option value="NO">לא</option>-->
+<!--            </select>-->
+<!--        <br><br>-->
+    </div>
+    <div style="text-align:center">
+        <button type="submit">Submit</button>
+    </div>
 </form>
 </html>

@@ -18,6 +18,7 @@ import requests
 # Internal imports
 from db import init_db_command
 from user import User
+from game import Game
 
 # Configuration
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
@@ -29,6 +30,7 @@ GOOGLE_DISCOVERY_URL = (
 # Flask app setup
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
+id = 0
 
 # User session management setup
 # https://flask-login.readthedocs.io/en/latest
@@ -151,19 +153,24 @@ def callback():
     return redirect(url_for("index"))
 
 
-@app.route("/form", methods=["GET", "POST"])
 @login_required
+@app.route("/form", methods=["GET", "POST"])
 def form():
     if request.method == "POST":
-        # getting input with name = fname in HTML form
-        climb_lvl_auto = request.form.get("auto_climb_lvl")
-        # getting input with name = lname in HTML form
-        num_balls_auto = request.form.get("auto_num_balls")
-        ret_str = current_user.name + " CLIMB LEVEL: " + str(climb_lvl_auto) + \
-              " AUTO NUM OF BALLS: " + str(num_balls_auto)
-        return ret_str
+        team_num = request.form.get("team_num")
+        game_num = request.form.get("game_num")
+        game_type = request.form.get("game_type")
+        print(type(game_type))
+        print(str(game_type))
+        scouter_name = request.form.get("scouter_name")
+        # form_filler = current_user.name
+        # auto_climb_lvl = request.form.get("auto_climb_lvl")
+        # auto_balls_amt = request.form.get("auto_balls_amt")
+        Game(game_num, game_type, team_num,
+             scouter_name)
+        return "GREAT SUCCESS"
 
-    return render_template("form.html")
+    return render_template("form.html", variable=current_user.name)
 
 
 @app.route("/logout")
