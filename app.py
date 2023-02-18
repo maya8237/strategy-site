@@ -4,7 +4,7 @@ import os
 import sqlite3
 
 # Third-party libraries
-from flask import Flask, redirect, request, url_for, render_template
+from flask import Flask, redirect, request, url_for, render_template, jsonify, abort
 from flask_login import (
     LoginManager,
     current_user,
@@ -14,6 +14,9 @@ from flask_login import (
 )
 from oauthlib.oauth2 import WebApplicationClient
 import requests
+
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 # Internal imports
 from db import init_db_command
@@ -54,16 +57,39 @@ def load_user(user_id):
     return User.get(user_id)
 
 
+# credential = ServiceAccountCredentials.from_json_keyfile_name("credentials.json",
+#                                                               ["https://spreadsheets.google.com/feeds",
+#                                                                "https://www.googleapis.com/auth/spreadsheets",
+#                                                                "https://www.googleapis.com/auth/drive.file",
+#                                                                "https://www.googleapis.com/auth/drive"])
+# client = gspread.authorize(credential)
+# gsheet = client.open("strategy sheet").sheet1
+#
+
+# research more about JSON
+@app.route('/add_review', methods=["POST"])
+def add_scout_round():
+    row = ["game_num", "game_type", "team_num",
+                 "scouter_name"]
+    gsheet.insert_row(row, 1)
+
+
+# get all google sheet data
+@app.route('/get_stats', methods=["GET"])
+def get_all_rounds():
+    return jsonify(gsheet.get_all_records())
+
+
 @app.route("/")
 def index():
     if current_user.is_authenticated:
         return (
-
+            '<h1 style="font-family:calibri;text-align:center">'
             "<p>Hello, {}! You're logged in! Email: {}</p>"
             "<div><p>Google Profile Picture:</p>"
             '<img src="{}" alt="Google profile pic"></img></div>'
-            '<a class="button" href="/form">Form</a>'
-            '<a class="button" href="/logout">Logout</a>'.format(
+            '<a class="button" href="/form">Form</a><br>'
+            '<a class="button" href="/logout">Logout</a></h1>'.format(
                 current_user.name, current_user.email, current_user.profile_pic
             )
         )
@@ -153,7 +179,7 @@ def callback():
     return redirect(url_for("index"))
 
 
-@login_required
+# @login_required
 @app.route("/form", methods=["GET", "POST"])
 def form():
     if request.method == "POST":
@@ -168,7 +194,8 @@ def form():
         # auto_balls_amt = request.form.get("auto_balls_amt")
         Game(game_num, game_type, team_num,
              scouter_name)
-        return "GREAT SUCCESS"
+        return ('<h1 style="font-family:calibri;text-align:center">'
+                '<a class="button" href="/form">SUBMIT ANOTHER FORM</a></h1>')
 
     return render_template("form.html", variable=current_user.name)
 
@@ -182,3 +209,49 @@ def logout():
 
 if __name__ == "__main__":
     app.run(ssl_context="adhoc")
+
+def main():
+    """Shows basic usage of the Sheets API.
+    Prints values from a sample spreadsheet.
+    """
+    creds = None
+    # The file token.json stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        # Save the credentials for the next run
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
+
+    try:
+        service = build('sheets', 'v4', credentials=creds)
+
+        # Call the Sheets API
+        sheet = service.spreadsheets()
+        result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                                    range=SAMPLE_RANGE_NAME).execute()
+        values = result.get('values', [])
+
+        if not values:
+            print('No data found.')
+            return
+
+        print('Name, Major:')
+        for row in values:
+            # Print columns A and E, which correspond to indices 0 and 4.
+            print('%s, %s' % (row[0], row[4]))
+    except HttpError as err:
+        print(err)
+
+
+if __name__ == '__main__':
+    main()
