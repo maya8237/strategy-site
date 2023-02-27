@@ -156,20 +156,8 @@ def callback():
 @app.route("/form", methods=["GET", "POST"])
 def form():
     if request.method == "POST":
-        get_form_data()
-        team_num = request.form.get("team_num")
-        game_num = request.form.get("game_num")
-        game_type = request.form.get("game_type")
-        print(type(game_type))
-        print(str(game_type))
-        scouter_name = request.form.get("scouter_name")
-        # form_filler = current_user.name
-        # auto_climb_lvl = request.form.get("auto_climb_lvl")
-        # auto_balls_amt = request.form.get("auto_balls_amt")
-        Game(game_num, game_type, team_num,
-             scouter_name)
-        return ('<h1 style="font-family:calibri;text-align:center">'
-                '<a class="button" href="/form">SUBMIT ANOTHER FORM</a></h1>')
+        ret_val = get_form_data()
+        return ret_val
 
     return render_template("form.html", variable=current_user.name)
 
