@@ -18,7 +18,7 @@ import requests
 # Internal imports
 from db import init_db_command
 from user import User
-from game import Game
+from game import Game, get_form_data
 
 # Configuration
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
@@ -51,19 +51,6 @@ client = WebApplicationClient(GOOGLE_CLIENT_ID)
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(user_id)
-
-
-@app.route('/add_review', methods=["POST"])
-def add_scout_round():
-    row = ["game_num", "game_type", "team_num",
-           "scouter_name"]
-    gsheet.insert_row(row, 1)
-
-
-# get all google sheet data
-@app.route('/get_stats', methods=["GET"])
-def get_all_rounds():
-    return jsonify(gsheet.get_all_records())
 
 
 @app.route("/")
@@ -169,6 +156,7 @@ def callback():
 @app.route("/form", methods=["GET", "POST"])
 def form():
     if request.method == "POST":
+        get_form_data()
         team_num = request.form.get("team_num")
         game_num = request.form.get("game_num")
         game_type = request.form.get("game_type")
