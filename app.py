@@ -1,3 +1,8 @@
+# Internal imports
+from db import init_db_command
+from user import User
+from game import Game, get_form_data
+
 # Python standard libraries
 import json
 import os
@@ -14,11 +19,9 @@ from flask_login import (
 )
 from oauthlib.oauth2 import WebApplicationClient
 import requests
+from dotenv import load_dotenv
 
-# Internal imports
-from db import init_db_command
-from user import User
-from game import Game, get_form_data
+load_dotenv()
 
 # Configuration
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
@@ -46,6 +49,7 @@ except sqlite3.OperationalError:
 
 # OAuth 2 client setup
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
+
 
 # Flask-Login helper to retrieve a user from our db
 @login_manager.user_loader

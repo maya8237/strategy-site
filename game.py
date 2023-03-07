@@ -6,9 +6,9 @@ import googleapiclient.discovery
 from google.oauth2 import service_account
 from flask import request
 from datetime import datetime
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-#load_dotenv()
+load_dotenv()
 
 # RESEARCH ON SECURITY ON CLASS VARS
 def get_form_data():
