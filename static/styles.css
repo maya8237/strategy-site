@@ -1,0 +1,27 @@
+
+* {
+  margin-right: 10px;
+  margin-left: 10px;
+  font-family: calibri;
+  text-align: right;
+}
+
+p {
+  margin-right: 40px;
+  margin-left: 10px;
+}
+
+.sub {
+    margin: 4px;
+    cursor: pointer;
+}
+.add {
+    margin: 4px;
+    cursor: pointer;
+}
+.field {
+    text-align: center;
+    width: 40px;
+    margin: 4px;
+    color: salmon;
+}

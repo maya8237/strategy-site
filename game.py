@@ -12,14 +12,21 @@ from datetime import datetime
 def get_form_data():
     now = datetime.now()
     tstamp = now.strftime("%d/%m/%Y %H:%M:%S")
-    stats_to_get = ["timestamp", "scouter_name", "game_num", "team_num", "start_location",
+    stats_to_get = ["timestamp", "scouter_name", "game_num", "team_num",
+                    "starter_location",
                     "auto_o", "auto_a", "auto_b", "auto_c", "auto_d",
-                    "auto_drop", "auto_seesaw", "mobility", 
-                    "grid_h", "grid_m", "grid_lc", "grid_lf", "tele_drop", "tele_intake",
+                    "auto_drop", "auto_seesaw", "mobility",
+                    "grid_co_h", "grid_co_m", "grid_co_l",
+                    "grid_cu_h", "grid_cu_m", "grid_cu_l",
+                    "tele_drop", "tele_intake",
                     "defence_execute", "defence_location", "defence_receive", "intake_cones",
                     "intake_floats", "zone_foul", "seesaw_go_over", "endgame_seesaw",
                     "endgame_num", "disfunction", "comments"]
-    form_vals = ["timestamp", "scouter_name", "game_num", "team_num"]
+    form_vals = ["timestamp", "scouter_name", "game_num", "team_num", "starter_location",
+                 "auto_drop", "auto_seesaw", "mobility",
+                    "grid_co_h", "grid_co_m", "grid_co_l",
+                    "grid_cu_h", "grid_cu_m", "grid_cu_l",
+                    "tele_drop", "tele_intake"]
     # TIMESTAMP
     stats_obtained = []
     for stat in stats_to_get:
@@ -29,7 +36,7 @@ def get_form_data():
             if stat in form_vals:
                 val = request.form.get(stat)
             else:
-                val = None
+                val = ""
         stats_obtained.append(val)
     Game(stats_obtained)
     return ('<h1 style="font-family:calibri;text-align:center">'
@@ -84,7 +91,7 @@ class Game:
         num_rows = len(result.get('values', []))
 
         # Define the range to upload data to as the next empty row
-        range_to_update = f'A{num_rows + 1}:AE'
+        range_to_update = f'A{num_rows + 1}:AF'
 
         # Upload the values to the range
         body = {'values': stats}
