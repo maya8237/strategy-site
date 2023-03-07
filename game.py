@@ -6,7 +6,9 @@ import googleapiclient.discovery
 from google.oauth2 import service_account
 from flask import request
 from datetime import datetime
+#from dotenv import load_dotenv
 
+#load_dotenv()
 
 # RESEARCH ON SECURITY ON CLASS VARS
 def get_form_data():
@@ -23,10 +25,8 @@ def get_form_data():
                     "intake_floats", "zone_foul", "seesaw_go_over", "endgame_seesaw",
                     "endgame_num", "disfunction", "comments"]
     form_vals = ["timestamp", "scouter_name", "game_num", "team_num", "starter_location",
-                 "auto_drop", "auto_seesaw", "mobility",
-                    "grid_co_h", "grid_co_m", "grid_co_l",
-                    "grid_cu_h", "grid_cu_m", "grid_cu_l",
-                    "tele_drop", "tele_intake"]
+                 "auto_drop", "auto_seesaw", "mobility", "grid_co_h", "grid_co_m", "grid_co_l",
+                 "grid_cu_h", "grid_cu_m", "grid_cu_l", "tele_drop", "tele_intake"]
     # TIMESTAMP
     stats_obtained = []
     for stat in stats_to_get:
