@@ -1,100 +1,308 @@
 <html dir=rtl>
-<form action="/form" method="post">
+<head>
     <link rel="stylesheet" href="/static/styles.css">
     <meta charset="utf-8">
-    <body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+</head>
+<body>
+<form action="/form" id="myForm" method="post">
+
     <div>
         <label for="scouter_name">שם הסקאוטר:</label>
-        <input type="text" id="scouter_name" name="scouter_name" placeholder="" value="" required>
-        <button type=button" onclick="changeDefault()">GMAIL NAME</button>
+        <input type="text" id="scouter_name" name="scouter_name" placeholder="" value=""/>
+        <button type="button" onclick="changeDefault()">GMAIL NAME</button>
         <script type="text/javascript">
             function changeDefault() {
                 var name = "{{ variable }}";
                 document.getElementById("scouter_name").value = name;
             }
+
         </script>
         <br><br>
         <label for="team_num">מס' קבוצה:</label>
-        <input type="number" id="team_num" name="team_num" placeholder="" required>
+        <input type="number" id="team_num" name="team_num" placeholder=""/>
         <br><br>
         <label for="game_num">מס' משחק:</label>
-        <input type="number" id="game_num" name="game_num" placeholder="" required>
+        <input type="number" id="game_num" name="game_num" placeholder=""/>
         <br><br>
         <h2>AUTONOMOUS</h2>
         <img src="/static/starter_loc.png" alt="Starter Location Illustration" width="290" height="190">
         <br><br>
-        <label for="starter_location">מיקום התחלתי:</label>
-            <br>
-            <select name="starter_location" id="starter_location" size="5" required>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+        <label for="starter_location">מיקום התחלתי: (סמן את המספר הכי קרוב)</label>
+        <br>
+        <select name="starter_location" id="starter_location" size="5">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
         <br><br>
         <label for="auto_drop">האם הפיל כלי משחק \ ניסה להניח ונכשל:</label>
-            <select name="auto_drop" id="auto_drop" size="2" required>
-              <option value="כן">כן</option>
-              <option value="לא">לא</option>
-            </select>
+        <select name="auto_drop" id="auto_drop" size="2">
+            <option value="כן">כן</option>
+            <option value="לא">לא</option>
+        </select>
         <br><br>
         <label for="auto_seesaw">האם ניסה לטפס על הנדנדה:</label>
-            <br>
-            <select name="auto_seesaw" id="auto_seesaw" size="4" required>
-              <option value="כן">כן</option>
-              <option value="לא">לא</option>
-              <option value="הצליח אבל לא מאוזן">הצליח אבל לא מאוזן</option>
-              <option value="טיפס מאוזן">טיפס מאוזן</option>
-            </select>
+        <br>
+        <select name="auto_seesaw" id="auto_seesaw" size="4">
+            <option value="כן">כן</option>
+            <option value="לא">לא</option>
+            <option value="הצליח אבל לא מאוזן">הצליח אבל לא מאוזן</option>
+            <option value="טיפס מאוזן">טיפס מאוזן</option>
+        </select>
         <br><br>
         <label for="mobility">האם הרובוט יצא לגמרי מאזור הקהילה בזמן האוטונומי?</label>
-            <select name="mobility" id="mobility" size="2" required>
-              <option value="כן">כן</option>
-              <option value="לא">לא</option>
-            </select>
+        <select name="mobility" id="mobility" size="2">
+            <option value="כן">כן</option>
+            <option value="לא">לא</option>
+        </select>
         <br><br>
         <h2>TELEOP</h2>
-        <H3>מיקומים בגריד</H3>
-        <div id="grid1"> <h3>גבוה</h3>
+        <H3>מיקום כלי המשחק בגריד</H3>
+        <div id="grid1"><h3>גבוה</h3>
             קונוסים:
-            <button type="button" id="sub" class="sub">-</button>
-            <input type="text" id="grid_co_h" value="0" class="field" />
-            <button type="button" id="add" class="add">+</button>
+            <button type="button" id="sub1" class="sub">-</button>
+            <input type="text" id="grid_co_h" name="grid_co_h" value="0" class="field"/>
+            <button type="button" id="add1" class="add">+</button>
             קוביות:
             <button type="button" id="sub2" class="sub">-</button>
-            <input type="text" id="grid_cu_h" value="0" class="field" />
+            <input type="text" id="grid_cu_h" name="grid_cu_h" value="0" class="field"/>
             <button type="button" id="add2" class="add">+</button>
         </div>
         <br>
         <div id="grid2"><h3>בינוני</h3>
             קונוסים:
             <button type="button" id="sub3" class="sub">-</button>
-            <input type="text" id="grid_co_m" value="0" class="field" />
+            <input type="text" id="grid_co_m" name="grid_co_m" value="0" class="field"/>
             <button type="button" id="add3" class="add">+</button>
             קוביות:
             <button type="button" id="sub4" class="sub">-</button>
-            <input type="text" id="grid_cu_m" value="0" class="field" />
+            <input type="text" id="grid_cu_m" name="grid_cu_m" value="0" class="field"/>
             <button type="button" id="add4" class="add">+</button>
         </div>
         <br>
         <div id="grid3"><h3>נמוך</h3>
             קונוסים:
             <button type="button" id="sub5" class="sub">-</button>
-            <input type="text" id="grid_co_l" value="0" class="field" />
+            <input type="text" id="grid_co_l" name="grid_co_l" value="0" class="field"/>
             <button type="button" id="add5" class="add">+</button>
             קוביות:
             <button type="button" id="sub6" class="sub">-</button>
-            <input type="text" id="grid_cu_l" value="0" class="field" />
+            <input type="text" id="grid_cu_l" name="grid_cu_l" value="0" class="field"/>
             <button type="button" id="add6" class="add">+</button>
         </div>
+        <br><br>
+        <h3>אחר</h3>
+        <div id="drop"> האם הרובוט הפיל כלי משחק? כמה:
+            <button type="button" id="sub7" class="sub">-</button>
+            <input type="text" id="tele_drop" name="tele_drop" value="0" class="field"/>
+            <button type="button" id="add7" class="add">+</button>
+        </div>
+        <br>
+        <div id="intake"> האם הרובוט אסף כלי משחק מהרצפה מחוץ לאזור האיסוף? (שנשארו מאוטונומי או נפלו לקבוצה אחרת)
+            <br>
+            <button type="button" id="sub8" class="sub">-</button>
+            <input type="text" id="tele_intake" name="tele_intake" value="0" class="field"/>
+            <button type="button" id="add8" class="add">+</button>
+        </div>
+        <br>
+        <label for="defence_execute">האם הרובוט עשה הגנה? (חסם רובוטים\מנע גישה לאזור במגרש)</label>
+        <br>
+        <select name="defence_execute" id="defence_execute" size="3">
+            <option value="כן">כן</option>
+            <option value="בחלק קטן מהזמן">בחלק קטן מהזמן</option>
+            <option value="לא">לא</option>
+        </select>
+        <br><br>
+        <label for="defence_location">אם הרובוט הגן, מה האזור שבו הוא בעיקר חסם?</label>
+        <br><br>
+        <img src="/static/defense_loc.png" alt="Defense Location Illustration" width="320" height="300">
+        <br><br>
+
+        עמדות 1-2 אלה רובוטים אדומים שמונעים גישה לגריד כחול, ואילו רובוטים 3-4 אלו רובוטים כחולים שמונעים גישה לעמדת
+        שחקן אנושי אדומה
+        רובוט 5 הוא רובוט שמשחק בכל מקום אחר או רודף אחרי רובוטי ההתקפה ורובוט 0 לא עשה הגנה
+        <br><br>
+        <select name="defence_location" id="defence_location" size="6">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <br><br>
+        <label for="defence_receive">האם עשו על הרובוט הגנה? (רובוט ניסה לחסום לו את הדרך\התנגש בו במכוון\רדף אחריו
+            במגרש)</label>
+        <br>
+        <select name="defence_receive" id="defence_receive" size="3">
+            <option value="כן">כן</option>
+            <option value="בחלק קטן מהזמן">בחלק קטן מהזמן</option>
+            <option value="לא">לא</option>
+        </select>
+        <br><br>
+        <label for="intake_cones">איסוף קונוסים:</label>
+        <br>
+        <select name="intake_cones" id="intake_cones" size="4">
+            <option value="לא אוסף קונוסים">לא אוסף קונוסים</option>
+            <option value="אוסף מהשטיח">אוסף מהשטיח</option>
+            <option value="אוסף מהמגלשה">אוסף מהמגלשה</option>
+            <option value="אוסף מהמדף">אוסף מהמדף</option>
+        </select>
+        <br><br>
+        <label for="intake_floats">איסוף קוביות:</label>
+        <br>
+        <select name="intake_floats" id="intake_floats" size="4">
+            <option value="לא אוסף קוביות">לא אוסף קוביות</option>
+            <option value="אוסף מהשטיח">אוסף מהשטיח</option>
+            <option value="אוסף מהמגלשה">אוסף מהמגלשה</option>
+            <option value="אוסף מהמדף">אוסף מהמדף</option>
+        </select>
+        <br><br>
+        <label for="zone_foul">האם הרובוט נכנס לתוך אזורי הברית היריבה יותר מפעם אחת בטעות?</label>
+        <select name="zone_foul" id="zone_foul" size="2">
+            <option value="כן">כן</option>
+            <option value="לא">לא</option>
+        </select>
+        <br><br>
+        <label for="seesaw_go_over">האם הרובוט עבר על הנדנדה במהלך המשחק?</label>
+        <select name="seesaw_go_over" id="seesaw_go_over" size="2">
+            <option value="כן">כן</option>
+            <option value="לא">לא</option>
+        </select>
+        <br><br>
+        <h3>אנדגיים (נדנדה)</h3>
+        <label for="endgame_seesaw">האם ניסה לטפס על הנדנדה בסוף המשחק?</label>
+        <br>
+        <select name="endgame_seesaw" id="endgame_seesaw" size="4">
+            <option value="כן">כן</option>
+            <option value="לא">לא</option>
+            <option value="הצליח אבל לא מאוזן">הצליח אבל לא מאוזן</option>
+            <option value="טיפס מאוזן">טיפס מאוזן</option>
+        </select>
+        <br><br>
+        <div id="seesaw">כמה רובוטים מהברית היו על הנדנדה בסוף המשחק?
+            <button type="button" id="sub9" class="sub">-</button>
+            <input type="text" id="endgame_num" name="endgame_num" value="0" class="field"/>
+            <button type="button" id="add9" class="add">+</button>
+        </div>
+        <br><br>
+        <label for="park">האם בסוף המשחק הרובוט היה באזור הקהילה אבל לא על הנדנדה?</label>
+        <select name="park" id="park" size="2">
+            <option value="כן">כן</option>
+            <option value="לא">לא</option>
+        </select>
+        <br><br>
+        <h3>הערות נוספות</h3>
+        <label for="disfunction">האם הרובוט נכבה, נתקע או נשבר במהלך המשחק?</label>
+        <br>
+        <select name="disfunction" id="disfunction" size="4">
+            <option value="לא">לא</option>
+            <option value="קצת נתקע">קצת נתקע</option>
+            <option value="היה תקוע כל המשחק">היה תקוע כל המשחק</option>
+            <option value="נראה שנשברה/נפגעה מערכת ברובוט">נראה שנשברה/נפגעה מערכת ברובוט</option>
+        </select>
+        <br><br>
+        <label for="comments">תכתבו דברים שראיתם ואתם חושבים שלא התייחסנו אליהם</label>
+        <br>
+        למשל, רובוט שמטפס מהצד או מרים אתו רובוט אחר, רובוט שעושה מלא עבירות, רובוט שמפוצץ קוביות ועוד ועוד
+        <br>
+        <textarea id="comments" style="width: 400px; height: 50px; text-align:right"
+                  name="comments" placeholder=""></textarea>
+        <br><br>
         <script src="/static/grid.js"></script>
 
+
     </div>
-    </body>
     <br>
     <div style="text-align:center">
-        <button type="submit" onclick="this.disabled=true;this.value='Sending, please wait...';this.form.submit();">Submit</button>
+        <button type="submit" id="submit-btn">
+            Submit
+        </button>
     </div>
 </form>
+</body>
+<script type="text/javascript">
+        $(document).ready(function() {
+   $("#myForm").validate({
+      rules: {
+            scouter_name: "required",
+            game_num: "required",
+            team_num: "required",
+            starter_location: "required",
+            auto_o: "required",
+            auto_a: "required",
+            auto_b: "required",
+            auto_c: "required",
+            auto_d: "required",
+            auto_drop: "required",
+            auto_seesaw: "required",
+            mobility: "required",
+            grid_co_h: "required",
+            grid_co_m: "required",
+            grid_co_l: "required",
+            grid_cu_h: "required",
+            grid_cu_m: "required",
+            grid_cu_l: "required",
+            tele_drop: "required",
+            tele_intake: "required",
+            defence_execute: "required",
+            defence_location: "required",
+            defence_receive: "required",
+            intake_cones: "required",
+            intake_floats: "required",
+            zone_foul: "required",
+            seesaw_go_over: "required",
+            endgame_seesaw: "required",
+            endgame_num: "required",
+            park: "required",
+            disfunction: "required",
+      },
+          messages: {
+            scouter_name: "Please enter a scout's name",
+            game_num: "Please enter a game number",
+            team_num: "Please enter a team number",
+            starter_location: "Please select a starter location",
+            auto_o: "Please enter a value for auto_o",
+            auto_a: "Please enter a value for auto_a",
+            auto_b: "Please enter a value for auto_b",
+            auto_c: "Please enter a value for auto_c",
+            auto_d: "Please enter a value for auto_d",
+            auto_drop: "Please select a value for auto_drop",
+            auto_seesaw: "Please enter a value for auto_seesaw",
+            mobility: "Please select a value for mobility",
+            grid_co_h: "Please enter a value for grid_co_h",
+            grid_co_m: "Please enter a value for grid_co_m",
+            grid_co_l: "Please enter a value for grid_co_l",
+            grid_cu_h: "Please enter a value for grid_cu_h",
+            grid_cu_m: "Please enter a value for grid_cu_m",
+            grid_cu_l: "Please enter a value for grid_cu_l",
+            tele_drop: "Please enter a value for tele_drop",
+            tele_intake: "Please enter a value for tele_intake",
+            defence_execute: "Please enter a value for defence_execute",
+            defence_location: "Please enter a value for defence_location",
+            defence_receive: "Please enter a value for defence_receive",
+            intake_cones: "Please enter a value for intake_cones",
+            intake_floats: "Please enter a value for intake_floats",
+            zone_foul: "Please enter a value for zone_foul",
+            seesaw_go_over: "Please enter a value for seesaw_go_over",
+            endgame_num: "Please enter a value for endgame_num",
+            park: "Please enter a value for park",
+            disfunction: "Please enter a value for disfunction"
+          },
+          submitHandler: function(form) {
+            form.submit();
+            $("#submit-btn").attr("disabled", true);
+            $("#submit-btn").val("Sending, please wait...");
+        },
+         errorPlacement: function(error, element) {
+      error.appendTo('#errorContainer');}
+   });
+});
+
+</script>
 </html>

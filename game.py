@@ -1,4 +1,4 @@
-from db import get_db
+# from db import get_db
 import json
 import os
 from oauth2client.service_account import ServiceAccountCredentials
@@ -23,20 +23,15 @@ def get_form_data():
                     "tele_drop", "tele_intake",
                     "defence_execute", "defence_location", "defence_receive", "intake_cones",
                     "intake_floats", "zone_foul", "seesaw_go_over", "endgame_seesaw",
-                    "endgame_num", "disfunction", "comments"]
-    form_vals = ["timestamp", "scouter_name", "game_num", "team_num", "starter_location",
-                 "auto_drop", "auto_seesaw", "mobility", "grid_co_h", "grid_co_m", "grid_co_l",
-                 "grid_cu_h", "grid_cu_m", "grid_cu_l", "tele_drop", "tele_intake"]
+                    "endgame_num", "park", "disfunction", "comments"]
     # TIMESTAMP
     stats_obtained = []
     for stat in stats_to_get:
         if stat == "timestamp":
             val = tstamp
         else:
-            if stat in form_vals:
-                val = request.form.get(stat)
-            else:
-                val = ""
+            val = request.form.get(stat)
+            print(f'{stat}:{val}')
         stats_obtained.append(val)
     Game(stats_obtained)
     return ('<h1 style="font-family:calibri;text-align:center">'
@@ -91,7 +86,7 @@ class Game:
         num_rows = len(result.get('values', []))
 
         # Define the range to upload data to as the next empty row
-        range_to_update = f'A{num_rows + 1}:AF'
+        range_to_update = f'A{num_rows + 1}:AG'
 
         # Upload the values to the range
         body = {'values': stats}

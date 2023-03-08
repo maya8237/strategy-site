@@ -173,5 +173,9 @@ def logout():
     return redirect(url_for("index"))
 
 
+def create_app():
+    return app
+
+
 if __name__ == "__main__":
-    app.run(ssl_context="adhoc")
+    app.run(host='0.0.0.0', port=8083, ssl_context="adhoc", threaded=True)
