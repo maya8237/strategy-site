@@ -14,16 +14,15 @@ load_dotenv()
 def get_form_data():
     now = datetime.now()
     tstamp = now.strftime("%d/%m/%Y %H:%M:%S")
-    stats_to_get = ["timestamp", "scouter_name", "game_num", "team_num",
-                    "starter_location",
-                    "auto_o", "auto_a", "auto_b", "auto_c", "auto_d",
-                    "auto_drop", "auto_seesaw", "mobility",
+    stats_to_get = ["timestamp", "scouter_name", "game_num", "team_num", "on_field", "starter_location",
+                    "starter_tool_1", "starter_height_1", "starter_tool_2", "starter_height_2",
+                    "starter_tool_3", "starter_height_3",
+                    "auto_seesaw", "mobility",
                     "grid_co_h", "grid_co_m", "grid_co_l",
                     "grid_cu_h", "grid_cu_m", "grid_cu_l",
-                    "tele_drop", "tele_intake",
-                    "defence_execute", "defence_location", "defence_receive", "intake_cones",
-                    "intake_floats", "zone_foul", "seesaw_go_over", "endgame_seesaw",
-                    "endgame_num", "park", "disfunction", "comments"]
+                    "cone_shoot", "cube_shoot",
+                    "defence_execute", "defence_receive",
+                    "dysfunction", "flip", "comments"]
     # TIMESTAMP
     stats_obtained = []
     for stat in stats_to_get:
@@ -86,7 +85,7 @@ class Game:
         num_rows = len(result.get('values', []))
 
         # Define the range to upload data to as the next empty row
-        range_to_update = f'A{num_rows + 1}:AG'
+        range_to_update = f'A{num_rows + 1}:AA'
 
         # Upload the values to the range
         body = {'values': stats}
