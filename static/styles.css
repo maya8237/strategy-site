@@ -1,4 +1,10 @@
 
+input {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+
 * {
   margin-right: 30px;
   margin-left: 30px;
