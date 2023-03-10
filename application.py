@@ -1,12 +1,11 @@
 # Internal imports
-from db import init_db_command
+#from db import init_db_command
 from user import User
 from game import Game, get_form_data
 
 # Python standard libraries
 import json
 import os
-import sqlite3
 
 # Third-party libraries
 from flask import Flask, redirect, request, url_for, render_template, jsonify, abort
@@ -41,12 +40,12 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 # Naive database setup
-try:
+"""try:
     init_db_command()
 except sqlite3.OperationalError:
     # Assume it's already been created
     pass
-
+"""
 # OAuth 2 client setup
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
@@ -178,4 +177,4 @@ def create_app():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000, ssl_context="adhoc", threaded=True)
+    app.run(host="0.0.0.0", ssl_context='adhoc', port=8000, threaded=True)
