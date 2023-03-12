@@ -7,12 +7,14 @@ from google.oauth2 import service_account
 from flask import request
 from datetime import datetime
 from dotenv import load_dotenv
+import pytz
 
 load_dotenv()
 
 # RESEARCH ON SECURITY ON CLASS VARS
 def get_form_data():
-    now = datetime.now()
+    cairo_tz = pytz.timezone('Africa/Cairo')
+    now = datetime.now(tz=cairo_tz)
     tstamp = now.strftime("%d/%m/%Y %H:%M:%S")
     stats_to_get = ["timestamp", "scouter_name", "game_num", "team_num", "on_field", "starter_location",
                     "starter_tool_1", "starter_height_1", "starter_tool_2", "starter_height_2",

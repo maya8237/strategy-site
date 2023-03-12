@@ -1,15 +1,46 @@
 
-input {
--webkit-appearance: none;
--moz-appearance: none;
-appearance: none;
+h2 {
+    color: blue;
+    margin-right: 10px;
+}
+
+.radio {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.radio_label {
+    margin-right: 10px;
+}
+
+.title_label {
+  font-weight: bold;
+  font-size: 18px;
+  margin-right: 12px;
+
+}
+
+input[type="radio"] {
+  margin-left: 0;
+  -webkit-transform: scale(2,1.6);
+  margin-bottom: 10px;
+}
+
+input[type="text", "number"] {
+  -webkit-transform: scale(1.1,1.1);
+}
+div {
+    margin-right: 12px;
+}
+
+h3 {
+    margin-right: 12px;
 }
 
 * {
-  margin-right: 30px;
-  margin-left: 30px;
+  margin-right: 20px;
   font-family: calibri;
-  text-align: center;
+  text-align: right;
 }
 
 p {
@@ -20,14 +51,20 @@ p {
 .sub {
     margin: 4px;
     cursor: pointer;
+    -webkit-transform: scale(1.2,1.2);
+
 }
 .add {
     margin: 4px;
     cursor: pointer;
+    -webkit-transform: scale(1.2,1.2);
+
 }
 .field {
     text-align: center;
     width: 40px;
     margin: 4px;
     color: salmon;
+
+
 }
