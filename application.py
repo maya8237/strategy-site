@@ -162,7 +162,7 @@ def form():
         ret_val = get_form_data()
         return ret_val
 
-    return render_template("form.html", variable=current_user.name)
+    return render_template("form.html")
 
 
 @app.route("/logout")
