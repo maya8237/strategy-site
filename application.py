@@ -64,8 +64,8 @@ def index():
             "<p>Hello, {}! You're logged in! Email: {}</p>"
             "<div><p>Google Profile Picture:</p>"
             '<img src="{}" alt="Google profile pic"></img></div>'
-            '<a class="button" href="/form">Form</a><br>'
-            '<a class="button" href="/logout">Logout</a></h1>'.format(
+            '<a class="button" style="color:purple" href="/form">Form</a><br><br><br>'
+            '<a class="button" style="color:purple" href="/logout">Logout</a></h1>'.format(
                 current_user.name, current_user.email, current_user.profile_pic
             )
         )
