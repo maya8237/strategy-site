@@ -35,8 +35,20 @@ def get_form_data():
             print(f'{stat}:{val}')
         stats_obtained.append(val)
     Game(stats_obtained)
-    return ('<h1 style="font-family:calibri;text-align:center">'
-            '<a class="button" href="/form">SUBMIT ANOTHER FORM</a></h1>')
+    return ("""<a style="font-family:calibri;text-align:center"/>
+                <a href="/form" style="text-decoration:none;"><button type="button" style="
+                width: 300px;
+                font-size: 23px;
+                border-radius: 5px;
+                padding: 14px 25px;
+                border: none;
+                font-weight: 500;
+                background-color: #5e1583;
+                color: white;
+                cursor: pointer;
+                display: block;
+                margin: auto;
+                margin-top: 25px;">SUBMIT ANOTHER FORM</button></a>""")
 
 
 def get_credentials():
