@@ -52,7 +52,6 @@
                 </div>
             </div>
             <div class="formbold-input-radio-wrapper">
-
                 <div class="formbold-radio-flex">
                     <div class="formbold-radio-group">
                         <label class="formbold-form-label">כלי משחק התחלתי:</label>
@@ -64,10 +63,8 @@
                         <label class="formbold-radio-label" for="starter_tool_1_3">לא</label><br>
                     </div>
                 </div>
-
             </div>
-            <div class="extra_tool_1">
-
+            <div id="extra_tool_1" style="display: none;">
             <div class="formbold-input-radio-wrapper">
                 <div class="formbold-radio-flex">
                     <div class="formbold-radio-group">
@@ -99,7 +96,7 @@
 
             </div>
             </div>
-            <div class="extra_tool_2">
+            <div id="extra_tool_2" style="display: none;">
 
             <div class="formbold-input-radio-wrapper">
                 <div class="formbold-radio-flex">
@@ -133,7 +130,7 @@
             </div>
 
             </div>
-            <div class="extra_tool_3">
+            <div id="extra_tool_3" style="display: none;">
             <div class="formbold-input-radio-wrapper">
                 <div class="formbold-radio-flex">
                     <div class="formbold-radio-group">
@@ -180,9 +177,9 @@
             </div>
             <h2>TELEOP</h2>
             <H3>מיקום כלי המשחק בגריד</H3>
-            <div class="formbold-input-group">
+            <div id="grid">
             <h4>גבוה</h4>
-            <div id="grid1" class="number-input">
+            <div id="grid1">
                 <label class="formbold-radio-label">קונוסים:</label>
                 <button type="button" id="add1" class="add">+</button>
                 <input type="number" id="grid_co_h" name="grid_co_h" value="0" class="field"/>
@@ -194,7 +191,7 @@
             </div>
             <br>
             <h4>בינוני</h4>
-            <div id="grid2" class="number-input">
+            <div id="grid2">
                 <label class="formbold-radio-label">קונוסים:</label>
                 <button type="button" id="add3" class="add">+</button>
                 <input type="number" id="grid_co_m" name="grid_co_m" value="0" class="field"/>
@@ -206,7 +203,7 @@
             </div>
             <br>
             <h4>נמוך</h4>
-            <div id="grid3" class="number-input">
+            <div id="grid3">
                 <label class="formbold-radio-label">קונוסים:</label>
                 <button type="button" id="add5" class="add">+</button>
                 <input type="number" id="grid_co_l" name="grid_co_l" value="0" class="field"/>
@@ -219,7 +216,7 @@
             </div>
             <br>
             <h2>כללי</h2>
-            <div id="shoot" class="number-input">
+            <div id="shoot">
                 <label class="formbold-radio-label">ירי קונוסים:</label>
                 <button type="button" id="add7" class="add">+</button>
                 <input type="number" id="cone_shoot" name="cone_shoot" value="0" class="field"/>
@@ -243,7 +240,7 @@
                         <label class="formbold-radio-label" for="defence_execute_3">לא</label><br>
                     </div>
                 </div>
-            <script src="/static/grid.js"></script>
+            <script src="/static/counter.js"></script>
 
             </div>
             <div class="formbold-input-radio-wrapper">
@@ -308,5 +305,5 @@
     </div>
 </div>
 </body>
-<script src="/static/required.js"></script>
+<script src="/static/main.js"></script>
 </html>

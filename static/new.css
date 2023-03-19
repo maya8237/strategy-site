@@ -117,9 +117,9 @@
   }
 }
 
-  .number-input input[type="number"] {
-    width:35px;
-    height:35px;
+   input[type="number"] {
+    width: 35px;
+    height: 35px;
     font-family: 'Inter', sans-serif;
     max: 6;
     font-size: 17px;
@@ -159,16 +159,23 @@
   }
 
   /* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
   input[type="number"] {
     -moz-appearance: textfield;
     text-align: center;
+
+}
+  input[type="number"].field {
+    width: 35px;
+    height: 35px;
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
 }
 
   .formbold-form-input {
