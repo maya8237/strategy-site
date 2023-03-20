@@ -35,8 +35,20 @@ def get_form_data():
             print(f'{stat}:{val}')
         stats_obtained.append(val)
     Game(stats_obtained)
-    return ('<h1 style="font-family:calibri;text-align:center">'
-            '<a class="button" href="/form">SUBMIT ANOTHER FORM</a></h1>')
+    return ("""<a style="font-family:calibri;text-align:center"/>
+                <a href="/form" style="text-decoration:none;"><button type="button" style="
+                width: 300px;
+                font-size: 23px;
+                border-radius: 5px;
+                padding: 14px 25px;
+                border: none;
+                font-weight: 500;
+                background-color: #5e1583;
+                color: white;
+                cursor: pointer;
+                display: block;
+                margin: auto;
+                margin-top: 25px;">SUBMIT ANOTHER FORM</button></a>""")
 
 
 def get_credentials():
@@ -77,9 +89,23 @@ class Game:
              scouter_name),
         )
         db.commit()
-
+    def is_data_in_sheet(self):
+        service = get_service()
+        range_name = 'Form Responses 1!B1:D'
+        sheet_id = os.environ.get('GOOGLE_SPREADSHEET_ID')
+        result = service.spreadsheets().values().get(
+            spreadsheetId=sheet_id, range=range_name
+        ).execute()
+        existing_data = result.get('values', [])
+        data = [self.stats[1], self.stats[2], self.stats[3]]
+        print(data)
+        print(existing_data)
+        return data in existing_data
     def upload_stats(self):
         stats = [self.stats]
+        if self.is_data_in_sheet():
+            print("FOUND DUPLICATE: "+str(self.stats))
+            return None
         service = get_service()
         sheet_id = os.environ.get('GOOGLE_SPREADSHEET_ID')
         range_name = os.environ.get('GOOGLE_CELL_RANGE')
@@ -94,3 +120,4 @@ class Game:
         result = service.spreadsheets().values().update(spreadsheetId=sheet_id, range=range_to_update,
                                                         valueInputOption='USER_ENTERED', body=body).execute()
         print(f"{result.get('updatedCells')} cells updated.")
+

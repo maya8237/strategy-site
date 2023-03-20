@@ -1,5 +1,5 @@
 # Internal imports
-#from db import init_db_command
+# from db import init_db_command
 from user import User
 from game import Game, get_form_data
 
@@ -60,13 +60,38 @@ def load_user(user_id):
 def index():
     if current_user.is_authenticated:
         return (
-            '<h1 style="font-family:calibri;text-align:center">'
-            "<p>Hello, {}! You're logged in! Email: {}</p>"
-            "<div><p>Google Profile Picture:</p>"
-            '<img src="{}" alt="Google profile pic"></img></div>'
-            '<a class="button" href="/form">Form</a><br>'
-            '<a class="button" href="/logout">Logout</a></h1>'.format(
-                current_user.name, current_user.email, current_user.profile_pic
+            """<a style="font-family:calibri;text-align:center"/>
+                <h1 style="font-size:30px" dir=rtl>שלום
+                    <span>{}!</span></h1>
+                    <img style="display: block;
+                margin: auto;" src="{}" alt="Google profile pic"/><br>
+                <a href="/form" style="text-decoration:none;"><button type="button" style="
+                width: 100px;
+                font-size: 20px;
+                border-radius: 5px;
+                padding: 10px;
+                border: none;
+                font-weight: 500;
+                background-color: #5e1583;
+                color: white;
+                cursor: pointer;
+                display: block;
+                margin: auto;
+                margin-top: 25px;">FORM</button></a><br><br><br>
+                <a href="/logout" style="text-decoration:none;"><button type="button" style="
+                display: block;
+                width: 90px;
+                font-size: 15px;
+                border-radius: 5px;
+                padding: 10px;
+                border: none;
+                font-weight: 500;
+                background-color: black;
+                color: white;
+                cursor: pointer;
+                margin: auto;
+                margin-top: 25px;">LOGOUT</button></a></a>""".format(
+                current_user.name, current_user.profile_pic
             )
         )
     else:
@@ -162,7 +187,7 @@ def form():
         ret_val = get_form_data()
         return ret_val
 
-    return render_template("form.html", variable=current_user.name)
+    return render_template("form.html")
 
 
 @app.route("/logout")
@@ -177,4 +202,5 @@ def create_app():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", ssl_context='adhoc', port=443, threaded=True)
+    app.run(host="0.0.0.0", ssl_context='adhoc', port=443, threaded=True, debug=True)
+
