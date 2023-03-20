@@ -13,4 +13,3 @@ document.querySelectorAll('.sub').forEach(function(item) {
     }
   });
 });
-

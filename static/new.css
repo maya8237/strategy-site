@@ -151,11 +151,12 @@
     margin-right: 5px;
   }
 
-  input[type="radio"]{
+  input[type="radio"] {
     cursor: pointer;
     -ms-transform: scale(1.5); /* IE 9 */
     -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
     transform: scale(1.5);
+    accent-color: #8928eb;
   }
 
   /* Chrome, Safari, Edge, Opera */
