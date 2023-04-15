@@ -91,13 +91,13 @@ class Game:
         db.commit()
     def is_data_in_sheet(self):
         service = get_service()
-        range_name = 'Form Responses 1!B1:D'
+        range_name = 'Form Responses 1!B1:C'
         sheet_id = os.environ.get('GOOGLE_SPREADSHEET_ID')
         result = service.spreadsheets().values().get(
             spreadsheetId=sheet_id, range=range_name
         ).execute()
         existing_data = result.get('values', [])
-        data = [self.stats[1], self.stats[2], self.stats[3]]
+        data = [self.stats[1], self.stats[2]]
         print(data)
         print(existing_data)
         return data in existing_data
