@@ -120,3 +120,4 @@ class Game:
         result = service.spreadsheets().values().update(spreadsheetId=sheet_id, range=range_to_update,
                                                         valueInputOption='USER_ENTERED', body=body).execute()
         print(f"{result.get('updatedCells')} cells updated.")
+
