@@ -1,6 +1,3 @@
 .env
-Hello.pem
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+venv
+instance/db.sqlite
