@@ -27,8 +27,7 @@ def index():
             """<a style="font-family:calibri;text-align:center"/>
                 <h1 style="font-size:30px" dir=rtl>שלום
                     <span>{}!</span></h1>
-                    <img style="display: block;
-                margin: auto;" src="{}" alt="Google profile pic"/><br>
+                    <br>
                 <a href="/form" style="text-decoration:none;"><button type="button" style="
                 width: 100px;
                 font-size: 20px;
@@ -55,7 +54,7 @@ def index():
                 cursor: pointer;
                 margin: auto;
                 margin-top: 25px;">LOGOUT</button></a></a>""".format(
-                current_user.name, current_user.profile_pic
+                current_user.name
             )
         )
     else:
@@ -64,7 +63,7 @@ def index():
 
 @main.route('/profile')
 def profile():
-    return render_template('profile.html')
+    return render_template('profile.html', name=current_user.name)
 
 
 # @login_required

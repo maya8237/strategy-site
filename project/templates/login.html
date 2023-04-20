@@ -4,16 +4,24 @@
 <div class="column is-4 is-offset-4">
     <h3 class="title">Login</h3>
     <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+        {% endif %}
+        {% endwith %}
         <form method="POST" action="/login">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
+                    <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus=""
+                           required>
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Your Password">
+                    <input class="input is-large" type="password" name="password" placeholder="Your Password" required>
                 </div>
             </div>
             <div class="field">
@@ -24,9 +32,24 @@
             </div>
             <button class="button is-block is-info is-large is-fullwidth">Login</button>
         </form>
+
     </div>
+    <a href="/login/google">
+        <button type="button" class="google-sign-in-button" id="google-sign-in-button">
+            Sign in with Google
+        </button>
+        <script>
+            function googleClick(id){
+              document.getElementById("google-sign-in-button").disabled = true;
+              setTimeout(function(){document.getElementById("google-sign-in-button").disabled = false;},3000);
+            }
+            document.getElementById("google-sign-in-button").addEventListener("click", googleClick);
+
+
+        </script>
+    </a>
+
 
 </div>
-
 
 {% endblock %}

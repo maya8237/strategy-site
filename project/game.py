@@ -11,6 +11,7 @@ import pytz
 
 load_dotenv()
 
+
 # RESEARCH ON SECURITY ON CLASS VARS
 def get_form_data():
     cairo_tz = pytz.timezone('Africa/Cairo')

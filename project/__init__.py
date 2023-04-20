@@ -19,15 +19,16 @@ def create_app():
     db.init_app(app)
 
     # User session management setup
-    # https://flask-login.readthedocs.io/en/latest
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
+    from .models import User
+
     # Flask-Login helper to retrieve a user from our db
     @login_manager.user_loader
     def load_user(user_id):
-        return User.get(user_id)
+        return User.query.get(user_id)
 
     # blueprint for auth routes in our app
     from .auth import auth as auth_blueprint
