@@ -1,4 +1,3 @@
-# from db import get_db
 import json
 import os
 from oauth2client.service_account import ServiceAccountCredentials
@@ -8,7 +7,8 @@ from flask import request
 from datetime import datetime
 from dotenv import load_dotenv
 import pytz
-
+from .models import db
+# from .game_model import GameData
 load_dotenv()
 
 
@@ -74,22 +74,14 @@ def get_service(service_name='sheets', api_version='v4'):
 # tal haker was here :)
 class Game:
     def __init__(self, stats):
-        # self.get_values()
-        # self.stats = [game_num, game_type, team_num, scouter_name]
-        # self.put_into_db(stats)
         self.stats = stats
+        self.game_data = GameData(stats)
         self.upload_stats()
+        self.put_into_db()
 
     def put_into_db(self):
-        db = get_db()
-        db.execute(
-            """INSERT INTO games (team_num, game_num, game_type,
-                 scouter_name) """
-            "VALUES (?, ?, ?, ?)",
-            (team_num, game_num, game_type,
-             scouter_name),
-        )
-        db.commit()
+        self.game_data.add_to_db()
+
     def is_data_in_sheet(self):
         service = get_service()
         range_name = 'Form Responses 1!B1:C'

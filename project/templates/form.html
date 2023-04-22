@@ -7,90 +7,90 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 </head>
 <body>
-<div class="formbold-main-wrapper">
-    <div class="formbold-form-wrapper">
+<div class="main-wrapper">
+    <div class="form-wrapper">
         <form action="/form" id="myForm" method="post">
             <br>
-            <div style="display: table" class="formbold-input-group">
-                <label class="formbold-form-label" style="display: table-cell" for="scouter_name">שם הסקאוטר: </label>
-                <input type="text" id="scouter_name" style="display: table-cell" name="scouter_name" placeholder="" value=""/>
+            <div style="display: table" class="input-group">
+                <label class="form-label" style="display: table-cell" for="scouter_name">שם הסקאוטר: </label>
+                <input type="text" id="scouter_name" style="display: table-cell" name="scouter_name" placeholder="" value="{{ name }}"/>
             </div>
-            <div style="display: table" class="formbold-input-group">
-                <label class="formbold-form-label" style="display: table-cell" for="team_num">מס' קבוצה: </label>
+            <div style="display: table" class="input-group">
+                <label class="form-label" style="display: table-cell" for="team_num">מס' קבוצה: </label>
                 <input type="number" id="team_num" style="display: table-cell" name="team_num" placeholder=""/>
             </div>
-            <div style="display: table" class="formbold-input-group">
-                <label class="formbold-form-label" style="display: table-cell" for="game_num">מס' משחק: </label>
+            <div style="display: table" class="input-group">
+                <label class="form-label" style="display: table-cell" for="game_num">מס' משחק: </label>
                 <input type="number" id="game_num" style="display: table-cell" name="game_num" placeholder=""/>
             </div>
-            <div class="formbold-input-radio-wrapper">
-                <label class="formbold-form-label">
+            <div class="input-radio-wrapper">
+                <label class="form-label">
                     האם הרובוט עלה למגרש?
                 </label>
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
+                <div class="radio-flex">
+                    <div class="radio-group">
                         <input type="radio" name="on_field" id="on_field_1" value="כן">
-                        <label for="on_field_1" class="formbold-radio-label">כן</label><br>
+                        <label for="on_field_1" class="radio-label">כן</label><br>
                         <input type="radio" name="on_field" id="on_field_2" value="לא">
-                        <label for="on_field_2" class="formbold-radio-label">לא</label>
+                        <label for="on_field_2" class="radio-label">לא</label>
                     </div>
                 </div>
             </div>
             <h2>AUTONOMOUS</h2>
-            <img class="formbold-form-img" src="/static/starter_loc.jpg" alt="Starter Location Illustration" width="500" height="190">
-            <div class="formbold-input-radio-wrapper">
-                <label class="formbold-form-label"> מיקום התחלתי: (סמן את המספר הכי קרוב לפי התמונה)</label>
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
+            <img class="form-img" src="/static/starter_loc.jpg" alt="Starter Location Illustration" width="500" height="190">
+            <div class="input-radio-wrapper">
+                <label class="form-label"> מיקום התחלתי: (סמן את המספר הכי קרוב לפי התמונה)</label>
+                <div class="radio-flex">
+                    <div class="radio-group">
                         <input type="radio" name="starter_location" id="starter_location_1" value="1">
-                        <label for="starter_location_1" class="formbold-radio-label">1</label><br>
+                        <label for="starter_location_1" class="radio-label">1</label><br>
                         <input type="radio" name="starter_location" id="starter_location_2" value="2">
-                        <label for="starter_location_2" class="formbold-radio-label">2</label><br>
+                        <label for="starter_location_2" class="radio-label">2</label><br>
                         <input type="radio" name="starter_location" id="starter_location_3" value="3">
-                        <label for="starter_location_3" class="formbold-radio-label">3</label><br>
+                        <label for="starter_location_3" class="radio-label">3</label><br>
                     </div>
                 </div>
             </div>
-            <div class="formbold-input-radio-wrapper">
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
-                        <label class="formbold-form-label">כלי משחק התחלתי:</label>
+            <div class="input-radio-wrapper">
+                <div class="radio-flex">
+                    <div class="radio-group">
+                        <label class="form-label">כלי משחק התחלתי:</label>
                         <input type="radio" name="starter_tool_1" id="starter_tool_1_1" value="קונוס">
-                        <label for="starter_tool_1_1" class="formbold-radio-label">קונוס</label><br>
+                        <label for="starter_tool_1_1" class="radio-label">קונוס</label><br>
                         <input type="radio" name="starter_tool_1" id="starter_tool_1_2" value="קובייה">
-                        <label for="starter_tool_1_2" class="formbold-radio-label">קובייה</label><br>
+                        <label for="starter_tool_1_2" class="radio-label">קובייה</label><br>
                         <input type="radio" name="starter_tool_1" id="starter_tool_1_3" value="לא">
-                        <label class="formbold-radio-label" for="starter_tool_1_3">לא</label><br>
+                        <label class="radio-label" for="starter_tool_1_3">לא</label><br>
                     </div>
                 </div>
             </div>
             <div id="extra_tool_1" style="display: none;">
-            <div class="formbold-input-radio-wrapper">
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
-                        <label class="formbold-form-label">גובה שהניח אותו:</label>
+            <div class="input-radio-wrapper">
+                <div class="radio-flex">
+                    <div class="radio-group">
+                        <label class="form-label">גובה שהניח אותו:</label>
                         <input type="radio" name="starter_height_1" id="starter_height_1_4" value="3">
-                        <label class="formbold-radio-label" for="starter_height_1_4">3</label><br>
+                        <label class="radio-label" for="starter_height_1_4">3</label><br>
                         <input type="radio" name="starter_height_1" id="starter_height_1_3" value="2">
-                        <label class="formbold-radio-label" for="starter_height_1_3">2</label><br>
+                        <label class="radio-label" for="starter_height_1_3">2</label><br>
                         <input type="radio" name="starter_height_1" id="starter_height_1_2" value="1">
-                        <label class="formbold-radio-label" for="starter_height_1_2">1</label><br>
+                        <label class="radio-label" for="starter_height_1_2">1</label><br>
                         <input type="radio" name="starter_height_1" id="starter_height_1_1" value="0">
-                        <label class="formbold-radio-label" for="starter_height_1_1">לא הניח בגריד</label>
+                        <label class="radio-label" for="starter_height_1_1">לא הניח בגריד</label>
                     </div>
                 </div>
 
             </div>
-            <div class="formbold-input-radio-wrapper">
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
-                        <label class="formbold-form-label">כלי משחק התחלתי נוסף?</label>
+            <div class="input-radio-wrapper">
+                <div class="radio-flex">
+                    <div class="radio-group">
+                        <label class="form-label">כלי משחק התחלתי נוסף?</label>
                         <input type="radio" name="starter_tool_2" id="starter_tool_2_1" value="קונוס">
-                        <label class="formbold-radio-label" for="starter_tool_2_1">קונוס</label><br>
+                        <label class="radio-label" for="starter_tool_2_1">קונוס</label><br>
                         <input type="radio" name="starter_tool_2" id="starter_tool_2_2" value="קובייה">
-                        <label class="formbold-radio-label" for="starter_tool_2_2">קובייה</label><br>
+                        <label class="radio-label" for="starter_tool_2_2">קובייה</label><br>
                         <input type="radio" name="starter_tool_2" id="starter_tool_2_3" value="לא">
-                        <label class="formbold-radio-label" for="starter_tool_2_3">לא</label>
+                        <label class="radio-label" for="starter_tool_2_3">לא</label>
                     </div>
                 </div>
 
@@ -98,32 +98,32 @@
             </div>
             <div id="extra_tool_2" style="display: none;">
 
-            <div class="formbold-input-radio-wrapper">
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
-                        <label class="formbold-form-label">גובה שהניח אותו:</label>
+            <div class="input-radio-wrapper">
+                <div class="radio-flex">
+                    <div class="radio-group">
+                        <label class="form-label">גובה שהניח אותו:</label>
                         <input type="radio" name="starter_height_2" id="starter_height_2_4" value="3">
-                        <label class="formbold-radio-label" for="starter_height_2_4">3</label><br>
+                        <label class="radio-label" for="starter_height_2_4">3</label><br>
                         <input type="radio" name="starter_height_2" id="starter_height_2_3" value="2">
-                        <label class="formbold-radio-label" for="starter_height_2_3">2</label><br>
+                        <label class="radio-label" for="starter_height_2_3">2</label><br>
                         <input type="radio" name="starter_height_2" id="starter_height_2_2" value="1">
-                        <label class="formbold-radio-label" for="starter_height_2_2">1</label><br>
+                        <label class="radio-label" for="starter_height_2_2">1</label><br>
                         <input type="radio" name="starter_height_2" id="starter_height_2_1" value="0">
-                        <label class="formbold-radio-label" for="starter_height_2_1">לא הניח בגריד</label>
+                        <label class="radio-label" for="starter_height_2_1">לא הניח בגריד</label>
                     </div>
                 </div>
 
             </div>
-            <div class="formbold-input-radio-wrapper">
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
-                        <label class="formbold-form-label">כלי משחק התחלתי נוסף?</label>
+            <div class="input-radio-wrapper">
+                <div class="radio-flex">
+                    <div class="radio-group">
+                        <label class="form-label">כלי משחק התחלתי נוסף?</label>
                         <input type="radio" name="starter_tool_3" id="starter_tool_3_1" value="קונוס">
-                        <label class="formbold-radio-label" for="starter_tool_3_1">קונוס</label><br>
+                        <label class="radio-label" for="starter_tool_3_1">קונוס</label><br>
                         <input type="radio" name="starter_tool_3" id="starter_tool_3_2" value="קובייה">
-                        <label class="formbold-radio-label" for="starter_tool_3_2">קובייה</label><br>
+                        <label class="radio-label" for="starter_tool_3_2">קובייה</label><br>
                         <input type="radio" name="starter_tool_3" id="starter_tool_3_3" value="לא">
-                        <label class="formbold-radio-label" for="starter_tool_3_3">לא</label>
+                        <label class="radio-label" for="starter_tool_3_3">לא</label>
                     </div>
                 </div>
 
@@ -131,47 +131,47 @@
 
             </div>
             <div id="extra_tool_3" style="display: none;">
-            <div class="formbold-input-radio-wrapper">
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
-                        <label class="formbold-form-label">גובה שהניח אותו:</label>
+            <div class="input-radio-wrapper">
+                <div class="radio-flex">
+                    <div class="radio-group">
+                        <label class="form-label">גובה שהניח אותו:</label>
                         <input type="radio" name="starter_height_3" id="starter_height_3_4" value="3">
-                        <label class="formbold-radio-label" for="starter_height_3_4">3</label><br>
+                        <label class="radio-label" for="starter_height_3_4">3</label><br>
                         <input type="radio" name="starter_height_3" id="starter_height_3_3" value="2">
-                        <label class="formbold-radio-label" for="starter_height_3_3">2</label><br>
+                        <label class="radio-label" for="starter_height_3_3">2</label><br>
                         <input type="radio" name="starter_height_3" id="starter_height_3_2" value="1">
-                        <label class="formbold-radio-label" for="starter_height_3_2">1</label><br>
+                        <label class="radio-label" for="starter_height_3_2">1</label><br>
                         <input type="radio" name="starter_height_3" id="starter_height_3_1" value="0">
-                        <label class="formbold-radio-label" for="starter_height_3_1">לא הניח בגריד</label>
+                        <label class="radio-label" for="starter_height_3_1">לא הניח בגריד</label>
                     </div>
                 </div>
 
             </div>
             </div>
-            <div class="formbold-input-radio-wrapper">
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
-                        <label class="formbold-form-label">האם ניסה לטפס על הנדנדה באוטונומי?</label>
+            <div class="input-radio-wrapper">
+                <div class="radio-flex">
+                    <div class="radio-group">
+                        <label class="form-label">האם ניסה לטפס על הנדנדה באוטונומי?</label>
                         <input type="radio" name="auto_seesaw" id="auto_seesaw_1" value="טיפס מאוזן">
-                        <label class="formbold-radio-label" for="auto_seesaw_1">טיפס מאוזן</label><br>
+                        <label class="radio-label" for="auto_seesaw_1">טיפס מאוזן</label><br>
                         <input type="radio" name="auto_seesaw" id="auto_seesaw_2" value="הצליח אבל לא מאוזן">
-                        <label class="formbold-radio-label" for="auto_seesaw_2">הצליח אבל לא מאוזן</label><br>
+                        <label class="radio-label" for="auto_seesaw_2">הצליח אבל לא מאוזן</label><br>
                         <input type="radio" name="auto_seesaw" id="auto_seesaw_3" value="ניסה ולא הצליח">
-                        <label class="formbold-radio-label" for="auto_seesaw_3">ניסה ולא הצליח</label><br>
+                        <label class="radio-label" for="auto_seesaw_3">ניסה ולא הצליח</label><br>
                         <input type="radio" name="auto_seesaw" id="auto_seesaw_4" value="לא">
-                        <label class="formbold-radio-label" for="auto_seesaw_4">לא</label>
+                        <label class="radio-label" for="auto_seesaw_4">לא</label>
                     </div>
                 </div>
 
             </div>
-            <div class="formbold-input-radio-wrapper">
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
-                        <label class="formbold-form-label">האם הרובוט יצא לגמרי מאזור הקהילה בזמן האוטונומי?</label>
+            <div class="input-radio-wrapper">
+                <div class="radio-flex">
+                    <div class="radio-group">
+                        <label class="form-label">האם הרובוט יצא לגמרי מאזור הקהילה בזמן האוטונומי?</label>
                         <input type="radio" name="mobility" id="mobility_1" value="כן">
-                        <label for="mobility_1" class="formbold-radio-label">כן</label><br>
+                        <label for="mobility_1" class="radio-label">כן</label><br>
                         <input type="radio" name="mobility" id="mobility_2" value="לא">
-                        <label for="mobility_2" class="formbold-radio-label">לא</label><br>
+                        <label for="mobility_2" class="radio-label">לא</label><br>
                     </div>
                 </div>
             </div>
@@ -180,11 +180,11 @@
             <div id="grid">
             <h4>גבוה</h4>
             <div id="grid1">
-                <label class="formbold-radio-label">קונוסים:</label>
+                <label class="radio-label">קונוסים:</label>
                 <button type="button" id="add1" class="add">+</button>
                 <input type="number" id="grid_co_h" name="grid_co_h" value="0" class="field"/>
                 <button type="button" id="sub1" class="sub">-</button>
-                <label class="formbold-radio-label">קוביות:</label>
+                <label class="radio-label">קוביות:</label>
                 <button type="button" id="add2" class="add">+</button>
                 <input type="number" id="grid_cu_h" name="grid_cu_h" value="0" class="field"/>
                 <button type="button" id="sub2" class="sub">-</button>
@@ -192,11 +192,11 @@
             <br>
             <h4>בינוני</h4>
             <div id="grid2">
-                <label class="formbold-radio-label">קונוסים:</label>
+                <label class="radio-label">קונוסים:</label>
                 <button type="button" id="add3" class="add">+</button>
                 <input type="number" id="grid_co_m" name="grid_co_m" value="0" class="field"/>
                 <button type="button" id="sub3" class="sub">-</button>
-                <label class="formbold-radio-label">קוביות:</label>
+                <label class="radio-label">קוביות:</label>
                 <button type="button" id="add4" class="add">+</button>
                 <input type="number" id="grid_cu_m" name="grid_cu_m" value="0" class="field"/>
                 <button type="button" id="sub4" class="sub">-</button>
@@ -204,11 +204,11 @@
             <br>
             <h4>נמוך</h4>
             <div id="grid3">
-                <label class="formbold-radio-label">קונוסים:</label>
+                <label class="radio-label">קונוסים:</label>
                 <button type="button" id="add5" class="add">+</button>
                 <input type="number" id="grid_co_l" name="grid_co_l" value="0" class="field"/>
                 <button type="button" id="sub5" class="sub">-</button>
-                <label class="formbold-radio-label">קוביות:</label>
+                <label class="radio-label">קוביות:</label>
                 <button type="button" id="add6" class="add">+</button>
                 <input type="number" id="grid_cu_l" name="grid_cu_l" value="0" class="field"/>
                 <button type="button" id="sub6" class="sub">-</button>
@@ -217,77 +217,77 @@
             <br>
             <h2>כללי</h2>
             <div id="shoot">
-                <label class="formbold-radio-label">מסירת קונוסים:</label>
+                <label class="radio-label">מסירת קונוסים:</label>
                 <button type="button" id="add7" class="add">+</button>
                 <input type="number" id="cone_shoot" name="cone_shoot" value="0" class="field"/>
                 <button type="button" id="sub7" class="sub">-</button>
-                <label class="formbold-radio-label">מסירת קוביות:</label>
+                <label class="radio-label">מסירת קוביות:</label>
                 <button type="button" id="add8" class="add">+</button>
                 <input type="number" id="cube_shoot" name="cube_shoot" value="0" class="field"/>
                 <button type="button" id="sub8" class="sub">-</button>
             </div>
             <br>
-            <div class="formbold-input-radio-wrapper">
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
-                        <label class="formbold-form-label">האם הרובוט עשה הגנה? (חסם רובוטים\מנע גישה לאזור
+            <div class="input-radio-wrapper">
+                <div class="radio-flex">
+                    <div class="radio-group">
+                        <label class="form-label">האם הרובוט עשה הגנה? (חסם רובוטים\מנע גישה לאזור
                             במגרש)</label>
                         <input type="radio" name="defence_execute" id="defence_execute_1" value="כן">
-                        <label class="formbold-radio-label" for="defence_execute_1">כן</label><br>
+                        <label class="radio-label" for="defence_execute_1">כן</label><br>
                         <input type="radio" name="defence_execute" id="defence_execute_2" value="לקצת זמן">
-                        <label class="formbold-radio-label" for="defence_execute_2">לקצת זמן</label><br>
+                        <label class="radio-label" for="defence_execute_2">לקצת זמן</label><br>
                         <input type="radio" name="defence_execute" id="defence_execute_3" value="לא">
-                        <label class="formbold-radio-label" for="defence_execute_3">לא</label><br>
+                        <label class="radio-label" for="defence_execute_3">לא</label><br>
                     </div>
                 </div>
             <script src="/static/counter.js"></script>
 
             </div>
-            <div class="formbold-input-radio-wrapper">
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
-                        <label class="formbold-form-label">האם הייתה נגד הרובוט הגנה? (רובוט ניסה לחסום לו את הדרך\התנגש
+            <div class="input-radio-wrapper">
+                <div class="radio-flex">
+                    <div class="radio-group">
+                        <label class="form-label">האם הייתה נגד הרובוט הגנה? (רובוט ניסה לחסום לו את הדרך\התנגש
                             בו
                             במכוון\רדף
                             אחריו
                             במגרש)</label>
                         <input type="radio" name="defence_receive" id="defence_receive_1" value="כן">
-                        <label class="formbold-radio-label" for="defence_receive_1">כן</label><br>
+                        <label class="radio-label" for="defence_receive_1">כן</label><br>
                         <input type="radio" name="defence_receive" id="defence_receive_2" value="לקצת זמן">
-                        <label class="formbold-radio-label" for="defence_receive_2">לקצת זמן</label><br>
+                        <label class="radio-label" for="defence_receive_2">לקצת זמן</label><br>
                         <input type="radio" name="defence_receive" id="defence_receive_3" value="לא">
-                        <label class="formbold-radio-label" for="defence_receive_3">לא</label><br>
+                        <label class="radio-label" for="defence_receive_3">לא</label><br>
                     </div>
                 </div>
 
             </div>
             <h2>הערות נוספות</h2>
-            <div class="formbold-input-radio-wrapper">
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
-                        <label class="formbold-form-label">האם לרובוט הייתה תקלה? (נכבה, נתקע או נשבר במהלך
+            <div class="input-radio-wrapper">
+                <div class="radio-flex">
+                    <div class="radio-group">
+                        <label class="form-label">האם לרובוט הייתה תקלה? (נכבה, נתקע או נשבר במהלך
                             המשחק)</label>
                         <input type="radio" name="dysfunction" id="dysfunction_1" value="כן">
-                        <label for="dysfunction_1" class="formbold-radio-label">כן</label><br>
+                        <label for="dysfunction_1" class="radio-label">כן</label><br>
                         <input type="radio" name="dysfunction" id="dysfunction_2" value="לא">
-                        <label for="dysfunction_2" class="formbold-radio-label">לא</label><br>
+                        <label for="dysfunction_2" class="radio-label">לא</label><br>
                     </div>
                 </div>
 
             </div>
-            <div class="formbold-input-radio-wrapper">
-                <div class="formbold-radio-flex">
-                    <div class="formbold-radio-group">
-                        <label class="formbold-form-label">האם הרובוט התהפך?</label>
+            <div class="input-radio-wrapper">
+                <div class="radio-flex">
+                    <div class="radio-group">
+                        <label class="form-label">האם הרובוט התהפך?</label>
                         <input type="radio" name="flip" id="flip_1" value="כן">
-                        <label for="flip_1" class="formbold-radio-label">כן</label><br>
+                        <label for="flip_1" class="radio-label">כן</label><br>
                         <input type="radio" name="flip" id="flip_2" value="לא">
-                        <label for="flip_2" class="formbold-radio-label">לא</label><br>
+                        <label for="flip_2" class="radio-label">לא</label><br>
                     </div>
                 </div>
             </div>
             <div>
-                <label for="comments" class="formbold-form-label">תכתבו דברים שראיתם ואתם חושבים שלא התייחסנו
+                <label for="comments" class="form-label">תכתבו דברים שראיתם ואתם חושבים שלא התייחסנו
                     אליהם:
                     למשל, רובוט שמטפס מהצד או מרים אתו רובוט אחר, רובוט שעושה מלא עבירות,
                     רובוט
@@ -298,7 +298,7 @@
                           name="comments" placeholder=""></textarea>
             </div>
 
-            <button class="formbold-btn" type="submit" id="submit-btn">
+            <button class="btn" type="submit" id="submit-btn">
                 Submit
             </button>
         </form>

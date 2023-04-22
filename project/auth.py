@@ -2,6 +2,7 @@ from flask import Blueprint
 
 # Internal imports
 from . import db
+from .main import template
 
 # Python standard libraries
 import json
@@ -39,7 +40,7 @@ client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
 
 def create_new_user(email, name, password, google=0):
-    user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'), google=1)
+    user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'), google=google)
 
     # add the new user to the database
     db.session.add(user)
@@ -55,7 +56,7 @@ def get_google_provider_cfg():
 
 @auth.route('/login')
 def login():
-    return render_template('login.html')
+    return template('login.html')
 
 
 @auth.route('/login', methods=['POST'])
@@ -157,8 +158,8 @@ def callback():
         password = ''.join(["{}".format(randint(0, 9)) for num in range(0, 10)])
         user = create_new_user(email, name, password, 1)
 
-    # Begin user session by logging the user in
-    login_user(user)
+    # Begin user session by logging the user in, automatically remembering user
+    login_user(user, remember=True)
     print("{} logged in.".format(name))
 
     # Send user back to homepage
@@ -167,7 +168,7 @@ def callback():
 
 @auth.route('/signup')
 def signup():
-    return render_template('signup.html')
+    return template('signup.html')
 
 
 @auth.route('/signup', methods=['POST'])
@@ -176,6 +177,7 @@ def signup_post():
     email = request.form.get('email')
     name = request.form.get('name')
     password = request.form.get('password')
+    remember = True if request.form.get('remember') else False
 
     # if this returns a user, then the email already exists in database
     user = User.query.filter_by(email=email).first()
@@ -186,14 +188,14 @@ def signup_post():
 
     new_user = create_new_user(email, name, password, 0)
 
-    login_user(new_user)
+    login_user(new_user, remember=remember)
     print("{} logged in.".format(name))
 
     return redirect(url_for('main.profile'))
 
 
-@auth.route("/logout")
 @login_required
+@auth.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for("main.index"))

@@ -5,6 +5,7 @@ from . import game
 # Python standard libraries
 import json
 import os
+from functools import wraps
 
 # Third-party libraries
 from flask import Flask, redirect, request, url_for, render_template, jsonify, abort, Blueprint
@@ -16,61 +17,56 @@ from flask_login import (
     logout_user,
 )
 from . import db
+from .models import Admin
 
 main = Blueprint('main', __name__)
 
 
+
+# returns if user received is an admin
+def is_admin(user):
+    if not user.is_authenticated:
+        return False
+    admin = Admin.query.filter_by(email=user.email).first()
+    return admin is not None
+
+
+# defines a decorator that checks if the current user is an admin
+def admin_required(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return current_app.login_manager.unauthorized()
+        else:
+            if not is_admin(current_user):
+                abort(403)
+        return func(*args, **kwargs)
+    return decorated_function
+
+
+# load default variables and functions
+def template(file, **kwargs):
+    kwargs['is_admin'] = is_admin
+    return render_template(file, **kwargs)
+
+
 @main.route("/")
 def index():
-    if current_user.is_authenticated:
-        return (
-            """<a style="font-family:calibri;text-align:center"/>
-                <h1 style="font-size:30px" dir=rtl>שלום
-                    <span>{}!</span></h1>
-                    <br>
-                <a href="/form" style="text-decoration:none;"><button type="button" style="
-                width: 100px;
-                font-size: 20px;
-                border-radius: 5px;
-                padding: 10px;
-                border: none;
-                font-weight: 500;
-                background-color: #5e1583;
-                color: white;
-                cursor: pointer;
-                display: block;
-                margin: auto;
-                margin-top: 25px;">FORM</button></a><br><br><br>
-                <a href="/logout" style="text-decoration:none;"><button type="button" style="
-                display: block;
-                width: 90px;
-                font-size: 15px;
-                border-radius: 5px;
-                padding: 10px;
-                border: none;
-                font-weight: 500;
-                background-color: black;
-                color: white;
-                cursor: pointer;
-                margin: auto;
-                margin-top: 25px;">LOGOUT</button></a></a>""".format(
-                current_user.name
-            )
-        )
-    else:
-        return render_template('index.html')
+    return template('index.html')
 
 
+@login_required
 @main.route('/profile')
 def profile():
-    return render_template('profile.html', name=current_user.name)
+    return template('profile.html', name=current_user.name)
 
 
-# @login_required
+@admin_required
+@login_required
 @main.route("/form", methods=["GET", "POST"])
 def form():
     if request.method == "POST":
         ret_val = get_form_data()
         return ret_val
 
-    return render_template("form.html")
+    return template("form.html", name=current_user.name)

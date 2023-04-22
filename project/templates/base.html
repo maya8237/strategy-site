@@ -26,6 +26,11 @@
                                 Profile
                             </a>
                             {% endif %}
+                            {% if is_admin(current_user) %}
+                            <a href="{{ url_for('main.form') }}" target="_blank" class="navbar-item">
+                                Form
+                            </a>
+                            {% endif %}
                             {% if not current_user.is_authenticated %}
                             <a href="{{ url_for('auth.login') }}" class="navbar-item">
                                 Login
