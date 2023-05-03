@@ -1,6 +1,6 @@
 # Internal imports
-# from db import init_db_command
-from . import game
+from .models import Admin
+from . import db
 
 # Python standard libraries
 import json
@@ -16,11 +16,9 @@ from flask_login import (
     login_user,
     logout_user,
 )
-from . import db
-from .models import Admin
+
 
 main = Blueprint('main', __name__)
-
 
 
 # returns if user received is an admin

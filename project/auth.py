@@ -1,8 +1,9 @@
 from flask import Blueprint
 
 # Internal imports
-from . import db
 from .main import template
+from .models import User
+from . import db
 
 # Python standard libraries
 import json
@@ -20,10 +21,8 @@ from flask_login import (
     login_user,
     logout_user,
 )
-
-from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import User
+
 
 auth = Blueprint('auth', __name__)
 load_dotenv()
