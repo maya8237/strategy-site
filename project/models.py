@@ -1,6 +1,6 @@
 from . import db
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, UniqueConstraint
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -41,14 +41,17 @@ class GameData(db.Model):
     scouter_name = Column(String, nullable=False)
     game_num = Column(Integer, nullable=False)
     team_num = Column(Integer, nullable=False)
+    __table_args__ = (
+        UniqueConstraint('game_num', 'team_num'),
+    )
     played = Column(Integer, nullable=False)
     starting_location = Column(Integer, nullable=False)
     piece_1 = Column(Integer, nullable=False)
-    piece_1_height = Column(Integer, nullable=False)
-    piece_2 = Column(Integer, nullable=False)
-    piece_2_height = Column(Integer, nullable=False)
-    piece_3 = Column(Integer, nullable=False)
-    piece_3_height = Column(Integer, nullable=False)
+    piece_1_height = Column(Integer, nullable=True) # MAKE IT NOT NULLABLE WITH CHECKS
+    piece_2 = Column(Integer, nullable=True)
+    piece_2_height = Column(Integer, nullable=True)
+    piece_3 = Column(Integer, nullable=True)
+    piece_3_height = Column(Integer, nullable=True)
     auto_seesaw = Column(Integer, nullable=False)
     mobility = Column(Integer, nullable=False)
     cones_h = Column(Integer, nullable=False)
@@ -63,11 +66,11 @@ class GameData(db.Model):
     defence_receive = Column(Integer, nullable=False)
     malfunction = Column(Integer, nullable=False)
     flip_over = Column(Integer, nullable=False)
-    comments = Column(String, nullable=False)
+    comments = Column(String, nullable=True)
 
     def __init__(self, stats):
         self.timestamp = stats[0]
-        self.scouter = stats[1]
+        self.scouter_name = stats[1]
         self.game_num = stats[2]
         self.team_num = stats[3]
         self.played = stats[4]
@@ -92,6 +95,7 @@ class GameData(db.Model):
         self.defence_receive = stats[23]
         self.malfunction = stats[24]
         self.flip_over = stats[25]
+        self.comments = stats[26]
 
     def add_to_game_db(self):
         db.session.add(self)

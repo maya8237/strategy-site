@@ -59,6 +59,7 @@ $(document).ready(function() {
       team_num: "required",
       starter_location: "required",
       starter_tool_1: "required",
+      starter_height_1: "required",
       auto_seesaw: "required",
       mobility: "required",
       grid_co_h: "required",

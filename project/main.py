@@ -1,6 +1,7 @@
 # Internal imports
-from .models import Admin
+from .models import Admin, GameData
 from . import db
+from .game import get_form_data, Game
 
 # Python standard libraries
 import json
@@ -65,6 +66,17 @@ def profile():
 def form():
     if request.method == "POST":
         ret_val = get_form_data()
-        return ret_val
+        # add duplicate games(that are ignored) to different database
+        if type(ret_val) == Game:
+            return redirect(url_for('main.after_form'))
+        else:
+            print("game object not returned")
 
     return template("form.html", name=current_user.name)
+
+
+@admin_required
+@login_required
+@main.route("/after_form", methods=["GET"])
+def after_form():
+    return template("after_form.html", name=current_user.name)

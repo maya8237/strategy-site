@@ -1,70 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-h2 {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+  }
+
+  .main-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    padding-top: 2%;
+    background-color: #2d0941;
+  }
+
+  .form-wrapper {
+    margin: 0 auto;
+    max-width: 570px;
+    width: 100%;
+    background: #ECECEC;
+    border: 2px solid #ccc;
+    padding: 40px;
+    padding-top: 0%;
+
+  }
+
+  h4, h2, h3 {
+    margin-bottom: 10px;
+    font-family: 'Inter', sans-serif;
+
+  }
+
+
+  h4 {
+    color: #2c041c;
+  }
+
+  h2 {
     color: #5e1583;
-    margin-right: 10px;
-}
+  }
 
-.radio {
+  h3 {
+    color: #311432;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .form-img {
+    margin-bottom: 15px;
+  }
+
+  .input-group {
+    margin-bottom: 18px;
+  }
+
+  #game_num {
+    width: 50px;
+  }
+
+  #team_num {
+    width: 70px;
+  }
+
+  #scouter_name {
+    width: 100px;
+  }
+
+  #scouter_name, #team_num, #game_num {
+    padding: 6px 10px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 12px;
+    resize: none;
+    font-family: 'Inter', sans-serif;
     text-align: right;
-    margin-top: 10px;
-}
-
-.radio_label {
     margin-right: 10px;
-}
+  }
 
-.title_label {
-  font-weight: bold;
-  font-size: 18px;
-  margin-right: 12px;
+  textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+    font-family: 'Inter', sans-serif;
 
-}
+  }
 
-input[type="radio"] {
-  margin-left: 0;
-  -webkit-transform: scale(2,1.6);
-  margin-bottom: 10px;
-}
-
-input[type="text", "number"] {
-  -webkit-transform: scale(1.1,1.1);
-}
-div {
-    margin-right: 12px;
-}
-
-h3 {
-    margin-right: 12px;
-}
-
-* {
-  margin-right: 20px;
-  font-family: calibri;
-  text-align: right;
-}
-
-p {
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-.sub {
-    margin: 4px;
+  .input-radio-wrapper {
+    margin-bottom: 25px;
+  }
+  .radio-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .radio-label {
+    font-size: 14px;
+    line-height: 24px;
+    position: relative;
+    padding-right: 15px;
     cursor: pointer;
-    -webkit-transform: scale(1.2,1.2);
-
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
 }
-.add {
-    margin: 4px;
+
+   input[type="number"] {
+    width: 35px;
+    height: 35px;
+    font-family: 'Inter', sans-serif;
+    max: 6;
+    font-size: 17px;
+  }
+
+  .add, .sub {
     cursor: pointer;
-    -webkit-transform: scale(1.2,1.2);
+    -ms-transform: scale(1.1); /* IE 9 */
+    -webkit-transform: scale(1.1); /* Chrome, Safari, Opera */
+    transform: scale(1.1);
+    width: 30px;
+    height: 30px;
+    background-color: #967bb6;
+    color: white;
+    border-radius: 0;
+    font-size: 20px;
+    border: none;
 
+  }
+
+  .sub {
+    margin-left: 10px;
+    margin-right: 2px;
+
+  }
+
+  #sub7 {
+    margin-left: 6px;
+    margin-right: 2px;
+  }
+
+  .add {
+    margin-left: 2px;
+    margin-right: 5px;
+  }
+
+  input[type="radio"] {
+    cursor: pointer;
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+    transform: scale(1.5);
+    accent-color: #8928eb;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
-.field {
+
+/* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
     text-align: center;
-    width: 40px;
-    margin: 4px;
-    color: salmon;
-
 
 }
+  input[type="number"].field {
+    width: 35px;
+    height: 35px;
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+}
+
+  .form-input {
+    width: 100%;
+    padding: 13px 22px;
+    border-radius: 5px;
+    border: 1px solid #dde3ec;
+    background: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    color: #07074d;
+    outline: none;
+    resize: none;
+  }
+
+  .form-label {
+    color: #07074d;
+    line-height: 24px;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+
+  }
+
+  .btn {
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 14px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #5e1583;
+    color: white;
+    cursor: pointer;
+    margin-top: 25px;
+  }
+  .btn:hover {
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+  }

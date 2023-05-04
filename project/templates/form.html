@@ -1,6 +1,6 @@
 <html dir=rtl>
 <head>
-    <link rel="stylesheet" href="/static/new.css">
+    <link rel="stylesheet" href="/static/styles.css">
     <meta charset="utf-8">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
@@ -13,7 +13,8 @@
             <br>
             <div style="display: table" class="input-group">
                 <label class="form-label" style="display: table-cell" for="scouter_name">שם הסקאוטר: </label>
-                <input type="text" id="scouter_name" style="display: table-cell" name="scouter_name" placeholder="" value="{{ name }}"/>
+                <input type="text" id="scouter_name" style="display: table-cell" name="scouter_name" placeholder=""
+                       value="{{ name }}"/>
             </div>
             <div style="display: table" class="input-group">
                 <label class="form-label" style="display: table-cell" for="team_num">מס' קבוצה: </label>
@@ -182,11 +183,15 @@
             <div id="grid1">
                 <label class="radio-label">קונוסים:</label>
                 <button type="button" id="add1" class="add">+</button>
-                <input type="number" id="grid_co_h" name="grid_co_h" value="0" class="field"/>
+                <input type="number" min="0" oninput="this.value =
+ !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                       id="grid_co_h" name="grid_co_h" value="0" class="field"/>
                 <button type="button" id="sub1" class="sub">-</button>
                 <label class="radio-label">קוביות:</label>
                 <button type="button" id="add2" class="add">+</button>
-                <input type="number" id="grid_cu_h" name="grid_cu_h" value="0" class="field"/>
+                <input type="number" min="0" oninput="this.value =
+ !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                       id="grid_cu_h" name="grid_cu_h" value="0" class="field"/>
                 <button type="button" id="sub2" class="sub">-</button>
             </div>
             <br>
@@ -194,11 +199,15 @@
             <div id="grid2">
                 <label class="radio-label">קונוסים:</label>
                 <button type="button" id="add3" class="add">+</button>
-                <input type="number" id="grid_co_m" name="grid_co_m" value="0" class="field"/>
+                <input type="number" min="0" oninput="this.value =
+ !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                       id="grid_co_m" name="grid_co_m" value="0" class="field"/>
                 <button type="button" id="sub3" class="sub">-</button>
                 <label class="radio-label">קוביות:</label>
                 <button type="button" id="add4" class="add">+</button>
-                <input type="number" id="grid_cu_m" name="grid_cu_m" value="0" class="field"/>
+                <input type="number" min="0" oninput="this.value =
+ !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                       id="grid_cu_m" name="grid_cu_m" value="0" class="field"/>
                 <button type="button" id="sub4" class="sub">-</button>
             </div>
             <br>
@@ -206,11 +215,15 @@
             <div id="grid3">
                 <label class="radio-label">קונוסים:</label>
                 <button type="button" id="add5" class="add">+</button>
-                <input type="number" id="grid_co_l" name="grid_co_l" value="0" class="field"/>
+                <input type="number" min="0" oninput="this.value =
+ !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                       id="grid_co_l" name="grid_co_l" value="0" class="field"/>
                 <button type="button" id="sub5" class="sub">-</button>
                 <label class="radio-label">קוביות:</label>
                 <button type="button" id="add6" class="add">+</button>
-                <input type="number" id="grid_cu_l" name="grid_cu_l" value="0" class="field"/>
+                <input type="number" min="0" oninput="this.value =
+ !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                       id="grid_cu_l" name="grid_cu_l" value="0" class="field"/>
                 <button type="button" id="sub6" class="sub">-</button>
             </div>
             </div>
@@ -219,11 +232,15 @@
             <div id="shoot">
                 <label class="radio-label">מסירת קונוסים:</label>
                 <button type="button" id="add7" class="add">+</button>
-                <input type="number" id="cone_shoot" name="cone_shoot" value="0" class="field"/>
+                <input type="number" min="0" oninput="this.value =
+ !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                       id="cone_shoot" name="cone_shoot" value="0" class="field"/>
                 <button type="button" id="sub7" class="sub">-</button>
                 <label class="radio-label">מסירת קוביות:</label>
                 <button type="button" id="add8" class="add">+</button>
-                <input type="number" id="cube_shoot" name="cube_shoot" value="0" class="field"/>
+                <input type="number" min="0" oninput="this.value =
+ !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                       id="cube_shoot" name="cube_shoot" value="0" class="field"/>
                 <button type="button" id="sub8" class="sub">-</button>
             </div>
             <br>

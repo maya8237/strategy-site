@@ -7,7 +7,8 @@ from flask import request
 from datetime import datetime
 from dotenv import load_dotenv
 import pytz
-from .models import db
+from . import db
+from .models import GameData
 # from .game_model import GameData
 load_dotenv()
 
@@ -35,21 +36,8 @@ def get_form_data():
             val = request.form.get(stat)
             print(f'{stat}:{val}')
         stats_obtained.append(val)
-    Game(stats_obtained)
-    return ("""<a style="font-family:calibri;text-align:center"/>
-                <a href="/form" style="text-decoration:none;"><button type="button" style="
-                width: 300px;
-                font-size: 23px;
-                border-radius: 5px;
-                padding: 14px 25px;
-                border: none;
-                font-weight: 500;
-                background-color: #5e1583;
-                color: white;
-                cursor: pointer;
-                display: block;
-                margin: auto;
-                margin-top: 25px;">SUBMIT ANOTHER FORM</button></a>""")
+    game = Game(stats_obtained)
+    return game
 
 
 def get_credentials():
@@ -80,7 +68,7 @@ class Game:
         self.put_into_db()
 
     def put_into_db(self):
-        self.game_data.add_to_db()
+        self.game_data.add_to_game_db()
 
     def is_data_in_sheet(self):
         service = get_service()
@@ -94,6 +82,7 @@ class Game:
         print(data)
         print(existing_data)
         return data in existing_data
+
     def upload_stats(self):
         stats = [self.stats]
         if self.is_data_in_sheet():
