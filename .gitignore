@@ -1,4 +1,5 @@
-project/.env
+flask-app/.env
 venv
-instance
+flask-app/instance
 .idea
+socket-graph-server/.env
