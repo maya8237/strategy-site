@@ -1,0 +1,52 @@
+from dotenv import load_dotenv
+import os
+from cryptography.fernet import Fernet
+import base64
+from more_itertools import chunked
+POSSIBLE_MESSAGES = ["UPDATE", "CHART"]
+IMAGE_FOLDER = "images/"
+
+
+def cipher_suite1():
+    load_dotenv()
+    encryption_key = os.environ.get("ENCRYPTION_KEY")
+    cipher_suite = Fernet(base64.b64decode(encryption_key))
+    return cipher_suite
+
+
+def encode_message(message):
+    cipher_suite = cipher_suite1()
+    encrypted_bytes = cipher_suite.encrypt(repr(message).encode('utf-8'))
+    # encoded_message = base64.b64encode(encrypted_bytes)
+    return encrypted_bytes
+
+
+def decode_message(message):
+    cipher_suite = cipher_suite1()
+    # encoded_message = base64.b64decode(message.decode())
+    decrypted_message = cipher_suite.decrypt(message).decode('utf-8')
+    if decrypted_message[0] == "'" and decrypted_message[-1] == "'":
+        decrypted_message = decrypted_message[1:-1]
+    return decrypted_message
+
+
+def get_message_with_length(message):
+    # Calculate the total length of the message
+    total_length = len(message) + 5
+    ret_message = f"{total_length:04}|" + message
+    return ret_message
+
+
+def create_chart_send_message(filename):
+    file_route = f"{IMAGE_FOLDER}/{filename}.png"
+    with open(file_route, 'rb') as file:
+        data = file.read()
+
+    # Convert PNG bytes to a base64-encoded string
+    data = base64.b64encode(data).decode('utf-8')
+
+    message = f"UPLOAD|{filename}.png|{data}"
+
+    return message
+
+
