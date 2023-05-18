@@ -2,7 +2,6 @@ from dotenv import load_dotenv
 import os
 from cryptography.fernet import Fernet
 import base64
-from more_itertools import chunked
 POSSIBLE_MESSAGES = ["UPDATE", "CHART"]
 
 
