@@ -1,5 +1,7 @@
 flask-app/.env
-venv
+flask-app/venv
 flask-app/instance
 .idea
 socket-graph-server/.env
+socket-graph-server/venv
+socket-graph-server/instance
