@@ -1,7 +1,7 @@
-flask-app/.env
-flask-app/venv
-flask-app/instance
+/flask-app/.env
+/flask-app/venv
+/flask-app/instance
 .idea
-socket-graph-server/.env
-socket-graph-server/venv
-socket-graph-server/instance
+/socket-graph-server/.env
+/socket-graph-server/venv/
+/socket-graph-server/instance/
