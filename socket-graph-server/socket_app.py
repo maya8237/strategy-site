@@ -33,14 +33,6 @@ server_address = os.environ.get("SOCKET_IP")
 server.bind((server_address, int(os.environ.get("SOCKET_PORT"))))
 server.listen(1)
 
-def get_public_ip():
-    response = requests.get('https://api.ipify.org?format=json')
-    ip_data = response.json()
-    return ip_data['ip']
-
-# Print the public IP address
-print("IP ADDRESS", get_public_ip())
-
 def update_data():
     global last_update_time
     message = "UPDATE|SOON"
