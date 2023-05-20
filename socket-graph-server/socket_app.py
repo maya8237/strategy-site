@@ -128,7 +128,10 @@ def handle_client_connection(client_socket):
             message = message.split("|", 3)
             print('Decrypted message:', message)
 
-            # if message not in protocol.POSSIBLE_MESSAGES return error
+            if message[1] not in protocol.POSSIBLE_MESSAGES:
+                print("Attempted non existing command")
+                client_socket.close()
+                break
 
             if message[1] == "UPDATE":
                 update_data()
@@ -158,11 +161,8 @@ if __name__ == '__main__':
             print('Client connected:', address)
 
             # Compare client's address with the server's address
-            if address[0] == server_address:
-                client_thread = threading.Thread(target=handle_client_connection, args=(client_socket,))
-                client_thread.start()
-            else:
-                print('Connection rejected: Client not from the same host as the server.')
+            client_thread = threading.Thread(target=handle_client_connection, args=(client_socket,))
+            client_thread.start()
 
         except KeyboardInterrupt:
             s.close()
