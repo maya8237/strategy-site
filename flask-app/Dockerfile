@@ -1,14 +1,18 @@
-# Use the official Python image as the base image
-FROM python:3.9
+FROM python:3.9-alpine
 
-# Set the working directory in the container
-WORKDIR /
+# copy the requirements file into the image
+COPY ./requirements.txt /app/requirements.txt
 
-# Copy the application files into the working directory
-COPY . /
+# switch working directory
+WORKDIR /app
 
-# Install the application dependencies
+# install the dependencies and packages in the requirements file
 RUN pip install -r requirements.txt
 
-# Define the entry point for the container
-CMD ["flask", "run", "--cert='adhoc'"]
+# copy every content from the local file to the image
+COPY . /app
+
+# configure the container to run in an executed manner
+ENTRYPOINT [ "python" ]
+
+CMD ["run.py" ]
