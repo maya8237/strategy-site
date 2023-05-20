@@ -22,6 +22,25 @@ with app.app_context():
     db.create_all()
     db.init_app(app)
 
+    admin_list = ["maya.yellin@gmail.com", "ma@test"]
+    added_admins = []
+
+    for email in admin_list:
+        # Check if the admin already exists
+        existing_admin = Admin.query.filter_by(email=email).first()
+
+        if existing_admin is None:
+            # Create a new admin instance
+            new_admin = Admin(email=email)
+
+            # Add the new admin to the database
+            db.session.add(new_admin)
+            db.session.commit()
+
+            added_admins.append(email)
+
+    print("Added admins:", added_admins)
+
 # User session management setup
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'

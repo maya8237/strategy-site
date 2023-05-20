@@ -25,10 +25,13 @@
                             <a href="{{ url_for('main.profile') }}" class="navbar-item">
                                 Profile
                             </a>
-                            {% endif %}
-                            {% if is_admin(current_user) %}
                             <a href="{{ url_for('main.form') }}" class="navbar-item">
                                 Form
+                            </a>
+                            {% endif %}
+                            {% if admin_tools.is_admin(current_user) %}
+                            <a href="{{ url_for('admin_tools.graphs') }}" class="navbar-item">
+                                Graphs
                             </a>
                             {% endif %}
                             {% if not current_user.is_authenticated %}
