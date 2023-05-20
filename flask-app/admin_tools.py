@@ -64,12 +64,12 @@ def recieve_image_data(s):
 def save_image(message):
     filename = message[2]
     unevaluated_image_data = message[3]
-
+    images_dir = "images"
     # Convert the string representation to a base64 string
     base64_string = unevaluated_image_data.encode('utf-8')  # Convert to bytes
     image_data = base64.b64decode(base64_string)  # Decode base64 bytes
 
-    file_route = f"images/{filename}"
+    file_route = f"{images_dir}/{filename}"
     # Save the decrypted image data as a PNG file
     with open(file_route, 'wb') as file:
         file.write(image_data)
@@ -84,7 +84,6 @@ def graphs():
         image_filenames = []
         team_num = request.form.get("team_num")
         query = request.form.get("query")  # includes ALL
-        image_dir = 'images'  # Directory to save the images
 
         # Function to handle each request in a separate thread
         def handle_request(query):

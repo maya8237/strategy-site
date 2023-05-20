@@ -10,7 +10,7 @@ from flask_login import (
 
 from game import get_form_data, Game
 from models import Admin
-from admin_tools import template
+from admin_tools import template, is_admin
 
 main = Blueprint('main', __name__)
 

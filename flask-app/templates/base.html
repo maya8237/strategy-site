@@ -29,7 +29,7 @@
                                 Form
                             </a>
                             {% endif %}
-                            {% if admin_tools.is_admin(current_user) %}
+                            {% if is_admin(current_user) %}
                             <a href="{{ url_for('admin_tools.graphs') }}" class="navbar-item">
                                 Graphs
                             </a>
