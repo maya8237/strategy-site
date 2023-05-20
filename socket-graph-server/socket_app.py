@@ -25,11 +25,12 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 
 last_update_time = None
+load_dotenv()
 
 # Create a socket server instance
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_address = '127.0.0.1'
-server.bind((server_address, 5001))
+server_address = os.environ.get("SOCKET_IP")
+server.bind((server_address, int(os.environ.get("SOCKET_PORT"))))
 server.listen(1)
 
 
@@ -152,8 +153,8 @@ def handle_client_connection(client_socket):
 
 if __name__ == '__main__':
     print('Server started. Listening for connections...')
-    try:
-        while True:
+    while True:
+        try:
             client_socket, address = server.accept()
             print('Client connected:', address)
 
@@ -164,7 +165,7 @@ if __name__ == '__main__':
             else:
                 print('Connection rejected: Client not from the same host as the server.')
 
-    except KeyboardInterrupt:
-        s.close()
-    finally:
-        s.close()
+        except KeyboardInterrupt:
+            s.close()
+            break
+

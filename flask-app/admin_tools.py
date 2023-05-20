@@ -46,7 +46,7 @@ def admin_required(func):
     return decorated_function
 
 
-def recieve_image_data(s):
+def receive_image_data(s):
     # Receive the encrypted image data in chunks
     chunks = []
     while True:
@@ -84,12 +84,13 @@ def graphs():
         image_filenames = []
         team_num = request.form.get("team_num")
         query = request.form.get("query")  # includes ALL
+        load_dotenv()
 
         # Function to handle each request in a separate thread
         def handle_request(query):
             # Connect to the socket server
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            server_address = ('localhost', 5001)
+            server_address = (os.environ.get('SOCKET_IP'), int(os.environ.get('SOCKET_PORT')))
             s.connect(server_address)
 
             # Send the request for an image
@@ -98,7 +99,7 @@ def graphs():
             s.sendall(encode_message(full_message))
 
             # Receive the image data
-            decrypted_data = recieve_image_data(s)
+            decrypted_data = receive_image_data(s)
             message_parts = decrypted_data.split("|", 3)
             filename = save_image(message_parts)
 
@@ -147,7 +148,7 @@ def display_image(filename):
 def update_data():
     # Connect to the socket server
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_address = ('localhost', 5001)
+    server_address = (os.environ.get('SOCKET_IP'), int(os.environ.get('SOCKET_PORT')))
     s.connect(server_address)
 
     full_message = get_message_with_length('UPDATE')
