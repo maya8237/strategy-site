@@ -33,6 +33,8 @@ server_address = os.environ.get("SOCKET_IP")
 server.bind((server_address, int(os.environ.get("SOCKET_PORT"))))
 server.listen(1)
 
+os.makedirs("images")
+
 def update_data():
     global last_update_time
     message = "UPDATE|SOON"

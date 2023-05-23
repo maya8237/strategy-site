@@ -46,6 +46,7 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
+os.makedirs("images")
 
 # Flask-Login helper to retrieve a user from our db
 @login_manager.user_loader
