@@ -52,10 +52,12 @@ def plot_all_teams_average_cones(session, filename):
     team_nums, avg_cones = get_all_teams_average_cones(session)
 
     # Plot and display the graph
+    plt.figure(figsize=(10, 5))
     plt.bar(team_nums, avg_cones)
     plt.xlabel('Team Number')
     plt.ylabel('Average Cones Per Game')
     plt.title('Average Cones Per Game for All Teams')
+    plt.xticks(rotation=90)
     plt.savefig("images/" + filename)
     plt.clf()
 
@@ -93,10 +95,12 @@ def plot_all_teams_average_floats(session, filename):
     team_nums, avg_floats = get_all_teams_average_floats(session)
 
     # Plot and display the graph
+    plt.figure(figsize=(10, 5))
     plt.bar(team_nums, avg_floats)
     plt.xlabel('Team Number')
     plt.ylabel('Average Floats Per Game')
     plt.title('Average Floats Per Game for All Teams')
+    plt.xticks(rotation=90)
     plt.savefig("images/" + filename)
     plt.clf()
 
