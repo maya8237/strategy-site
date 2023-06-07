@@ -8,7 +8,7 @@ from flask_login import (
     login_required,
 )
 
-from game import get_form_data, Game
+from game import Game
 from models import Admin
 from admin_tools import template, is_admin
 

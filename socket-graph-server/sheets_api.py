@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 def get_credentials():
     load_dotenv()
-    PRIVATE_KEY = os.environ.get('SOCKET_PRIVATE_KEY', None)
+    PRIVATE_KEY = os.environ.get('GOOGLE_PRIVATE_KEY', None)
     CLIENT_EMAIL = os.environ.get('SOCKET_CLIENT_EMAIL')
     scopes = ['https://www.googleapis.com/auth/spreadsheets']
     account_info = {
