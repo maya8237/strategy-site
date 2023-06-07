@@ -37,7 +37,7 @@ class Game:
         stats_obtained = []
         for stat in stats_to_get:
             if stat == "timestamp":
-                val = tstamp
+                val = create_timestamp()
             else:
                 val = request.form.get(stat)
                 print(f'{stat}:{val}')  # DONT PRINT
