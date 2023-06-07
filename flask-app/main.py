@@ -30,7 +30,7 @@ def profile():
 @login_required
 def form():
     if request.method == "POST":
-        ret_val = get_form_data()
+        ret_val = Game()
         # add duplicate games(that are ignored) to different database
         if type(ret_val) == Game:
             return redirect(url_for('main.after_form'))

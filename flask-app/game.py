@@ -10,52 +10,44 @@ import pytz
 from app import db
 from sheets_api import *
 from models import GameData
-# from .game_model import GameData
 load_dotenv()
 
 
 # RESEARCH ON SECURITY ON CLASS VARS
-def get_form_data():
+def create_timestamp():
     cairo_tz = pytz.timezone('Africa/Cairo')
     now = datetime.now(tz=cairo_tz)
     tstamp = now.strftime("%d/%m/%Y %H:%M:%S")
-    stats_to_get = ["timestamp", "scouter_name", "game_num", "team_num", "on_field", "starter_location",
-                    "starter_tool_1", "starter_height_1", "starter_tool_2", "starter_height_2",
-                    "starter_tool_3", "starter_height_3",
-                    "auto_seesaw", "mobility",
-                    "grid_co_h", "grid_co_m", "grid_co_l",
-                    "grid_cu_h", "grid_cu_m", "grid_cu_l",
-                    "cone_shoot", "cube_shoot",
-                    "defence_execute", "defence_receive",
-                    "dysfunction", "flip", "comments"]
-    # TIMESTAMP
-    stats_obtained = []
-    for stat in stats_to_get:
-        if stat == "timestamp":
-            val = tstamp
-        else:
-            val = request.form.get(stat)
-            print(f'{stat}:{val}') # DONT PRINT
-        stats_obtained.append(val)
-    game = Game(stats_obtained)
-    return game
+    return tstamp
 
 
-# tal haker was here :)
 class Game:
-    def __init__(self, stats):
-        self.stats = stats
-        self.game_data = GameData(stats)
+    def __init__(self):
+        # retrieves data from form
+        stats_to_get = ["timestamp", "scouter_name", "game_num", "team_num", "on_field", "starter_location",
+                        "starter_tool_1", "starter_height_1", "starter_tool_2", "starter_height_2",
+                        "starter_tool_3", "starter_height_3",
+                        "auto_seesaw", "mobility",
+                        "grid_co_h", "grid_co_m", "grid_co_l",
+                        "grid_cu_h", "grid_cu_m", "grid_cu_l",
+                        "cone_shoot", "cube_shoot",
+                        "defence_execute", "defence_receive",
+                        "dysfunction", "flip", "comments"]
+        # TIMESTAMP
+        stats_obtained = []
+        for stat in stats_to_get:
+            if stat == "timestamp":
+                val = tstamp
+            else:
+                val = request.form.get(stat)
+                print(f'{stat}:{val}')  # DONT PRINT
+            stats_obtained.append(val)
+
+        # creates a game instance
+        self.stats = stats_obtained
+        self.game_data = GameData(stats_obtained)
         self.upload_stats()
         self.game_data.add_to_game_db()
-
-    def delete_game(self): # MAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        pass
-
-
-    def is_data_in_sheet(self):
-        # check in database if there are dupes
-        return False
 
     def upload_stats(self):
         stats = [self.stats]

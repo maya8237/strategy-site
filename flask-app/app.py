@@ -9,6 +9,7 @@ from flask_login import LoginManager
 # Flask app setup
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
+admin_list = ["maya.yellin@gmail.com", "ma@test"]
 
 app.config['SECRET_KEY'] = app.secret_key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
@@ -22,31 +23,38 @@ with app.app_context():
     db.create_all()
     db.init_app(app)
 
-    admin_list = ["maya.yellin@gmail.com", "ma@test"]
-    added_admins = []
+    def update_admin_list(admin_list):
+        existing_admins = Admin.query.all()
+        existing_emails = [admin.email for admin in existing_admins]
+        print("EXISTING ADMINS", str(existing_emails))
+        # Find missing admins
+        missing_emails = list(set(admin_list) - set(existing_emails))
+        print("MISSING ADMINS", str(missing_emails))
+        # Find admins to be removed
+        admins_to_remove = [admin for admin in existing_admins if admin.email not in admin_list]
 
-    for email in admin_list:
-        # Check if the admin already exists
-        existing_admin = Admin.query.filter_by(email=email).first()
-
-        if existing_admin is None:
-            # Create a new admin instance
+        for email in missing_emails:
             new_admin = Admin(email=email)
-
-            # Add the new admin to the database
             db.session.add(new_admin)
-            db.session.commit()
 
-            added_admins.append(email)
+        for admin in admins_to_remove:
+            db.session.delete(admin)
 
-    print("Added admins:", added_admins)
+        db.session.commit()
+
+        print("UPDATED ADMINS", str(admin_list))
+
+    update_admin_list(admin_list)
 
 # User session management setup
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
-os.makedirs("images")
+directory = "images"
+
+if not os.path.exists(directory):
+    os.makedirs(directory)
 
 # Flask-Login helper to retrieve a user from our db
 @login_manager.user_loader
