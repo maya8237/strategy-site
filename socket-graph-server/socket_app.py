@@ -33,6 +33,8 @@ server_address = os.environ.get("SOCKET_IP")
 server.bind((server_address, int(os.environ.get("SOCKET_PORT"))))
 server.listen(1)
 
+directory = "images"
+
 if not os.path.exists(directory):
     os.makedirs(directory)
 
