@@ -51,9 +51,6 @@ class Game:
 
     def upload_stats(self):
         stats = [self.stats]
-        if self.is_data_in_sheet():
-            print("FOUND DUPLICATE: "+str(self.stats))  # DONT PRINT
-            return None
         service = get_service()
         sheet_id = os.environ.get('GOOGLE_SPREADSHEET_ID')
 
