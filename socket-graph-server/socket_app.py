@@ -107,9 +107,8 @@ def update_data():
 
 def send_chart_to_client(client_socket, team_num, query):
     filename = generate_filename(team_num, query)
-    print("filename =" + filename)
+    print("filename = " + filename)
     message = "UPLOAD|ERROR"  # IN CASE OF AN ERROR
-    print("Chart Error")
     try:
         create_graph(filename, team_num, query)
         message = protocol.create_chart_send_message(filename)
@@ -146,6 +145,8 @@ def handle_client_connection(client_socket):
                 query = message[3]
                 send_chart_to_client(client_socket, team_num, query)
 
+            break
+
         except socket.error as e:
             if e.errno == errno.WSAENOTSOCK:  # Check if the error is due to not a socket
                 print("Not a valid socket.")
@@ -164,8 +165,8 @@ if __name__ == '__main__':
         try:
             client_socket, address = server.accept()
             print('Client connected:', address)
+            protocol.create_connection(client_socket)
 
-            # Compare client's address with the server's address
             client_thread = threading.Thread(target=handle_client_connection, args=(client_socket,))
             client_thread.start()
 

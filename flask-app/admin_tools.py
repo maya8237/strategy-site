@@ -92,22 +92,24 @@ def graphs():
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             server_address = (os.environ.get('SOCKET_IP'), int(os.environ.get('SOCKET_PORT')))
             s.connect(server_address)
+            try:
+                create_client_connection(s)
+                # Send the request for an image
+                message = f"CHART|{team_num}|{query}"
+                full_message = get_message_with_length(message)
+                s.sendall(encode_message(full_message))
 
-            # Send the request for an image
-            message = f"CHART|{team_num}|{query}"
-            full_message = get_message_with_length(message)
-            s.sendall(encode_message(full_message))
+                # Receive the image data
+                decrypted_data = receive_image_data(s)
+                message_parts = decrypted_data.split("|", 3)
+                filename = save_image(message_parts)
 
-            # Receive the image data
-            decrypted_data = receive_image_data(s)
-            message_parts = decrypted_data.split("|", 3)
-            filename = save_image(message_parts)
+                # Add the filename to the list of image filenames
+                image_filenames.append(filename)
 
-            # Add the filename to the list of image filenames
-            image_filenames.append(filename)
-
-            # Close the socket
-            s.close()
+            finally:
+                # Close the socket
+                s.close()
 
         if query == 'ALL':
             # List of possible queries
@@ -150,6 +152,7 @@ def update_data():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = (os.environ.get('SOCKET_IP'), int(os.environ.get('SOCKET_PORT')))
     s.connect(server_address)
+    create_client_connection(s)
 
     full_message = get_message_with_length('UPDATE')
     s.sendall(encode_message(full_message))
