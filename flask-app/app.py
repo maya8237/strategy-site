@@ -9,7 +9,7 @@ from flask_login import LoginManager
 # Flask app setup
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
-admin_list = ["maya.yellin@gmail.com", "ma@test"]
+admin_list = ["maya.yellin@gmail.com", "ma@test", "maya@test"]
 
 app.config['SECRET_KEY'] = app.secret_key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'

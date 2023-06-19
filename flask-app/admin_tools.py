@@ -14,6 +14,7 @@ from flask_login import (
 
 from protocol import *
 from models import Admin
+from dotenv import load_dotenv
 
 admin_tools = Blueprint('admin_tools', __name__)
 
@@ -46,7 +47,7 @@ def admin_required(func):
     return decorated_function
 
 
-def receive_image_data(s):
+def receive_image_data(s, connection):
     # Receive the encrypted image data in chunks
     chunks = []
     while True:
@@ -57,12 +58,13 @@ def receive_image_data(s):
 
     encrypted_data = b''.join(chunks)
 
-    decrypted_data = decode_message(encrypted_data)
+    decrypted_data = connection.decode_message(encrypted_data)
     return decrypted_data
 
 
 def save_image(message):
     filename = message[2]
+    print("filename =", filename)
     unevaluated_image_data = message[3]
     images_dir = "images"
     # Convert the string representation to a base64 string
@@ -93,14 +95,15 @@ def graphs():
             server_address = (os.environ.get('SOCKET_IP'), int(os.environ.get('SOCKET_PORT')))
             s.connect(server_address)
             try:
-                create_client_connection(s)
+                connection = Connection()
+                connection.create_connection_with_server(s)
                 # Send the request for an image
                 message = f"CHART|{team_num}|{query}"
                 full_message = get_message_with_length(message)
-                s.sendall(encode_message(full_message))
+                s.sendall(connection.encode_message(full_message))
 
                 # Receive the image data
-                decrypted_data = receive_image_data(s)
+                decrypted_data = receive_image_data(s, connection)
                 message_parts = decrypted_data.split("|", 3)
                 filename = save_image(message_parts)
 
@@ -152,10 +155,11 @@ def update_data():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = (os.environ.get('SOCKET_IP'), int(os.environ.get('SOCKET_PORT')))
     s.connect(server_address)
-    create_client_connection(s)
+    connection = Connection()
+    connection.create_connection_with_server(s)
 
     full_message = get_message_with_length('UPDATE')
-    s.sendall(encode_message(full_message))
+    s.sendall(connection.encode_message(full_message))
     encrypted_data = ""
     while True:
         try:
@@ -172,7 +176,7 @@ def update_data():
             break
 
         finally:
-            decrypted_data = decode_message(encrypted_data)
+            decrypted_data = connection.decode_message(encrypted_data)
             message_parts = decrypted_data.split("|", 2)
             update_info = message_parts[2]
             message = ""
@@ -184,4 +188,4 @@ def update_data():
             elif update_info == "UPDATED":
                 message = "The information was updated."
 
-            return render_template('message.html', message=message)
+            return template('message.html', message=message)

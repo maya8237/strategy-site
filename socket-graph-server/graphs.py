@@ -1,7 +1,7 @@
 from sqlalchemy import func
 import matplotlib.pyplot as plt
 import matplotlib
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, text, exists
 from sqlalchemy.orm import sessionmaker
 import os
 import threading
@@ -198,6 +198,12 @@ def create_graph(filename, team_num, query):
 
     POSSIBLE_QUERIES = ["CONES_ALL", "CONES_PER", "FLOATS_ALL", "FLOATS_PER"]
 
+    # Check if team_num exists in the database
+    team_num_exists = session.query(exists().where(GameData.team_num == team_num)).scalar()
+    if not team_num_exists and "PER" in query:
+        session.close()
+        return None
+
     if query not in POSSIBLE_QUERIES:
         return None
 
@@ -220,6 +226,7 @@ def create_graph(filename, team_num, query):
         # Release the lock after accessing shared resources
         lock.release()
         session.close()
+        return "CREATED"
 
 
 def generate_filename(team_num, query):

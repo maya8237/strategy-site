@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Display Images</title>
-</head>
-<body>
-    <h1>Image Display</h1>
-    <div class="image-container">
-        {% for filename in image_filenames %}
-            <img src="{{ url_for('admin_tools.display_image', filename=filename) }}" alt="{{ filename }}">
-        {% endfor %}
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Image Display</h1>
+<div class="image-container">
+    {% for filename in image_filenames %}
+        <img src="{{ url_for('admin_tools.display_image', filename=filename) }}" alt="{{ filename }}">
+    {% endfor %}
+</div>
+{% endblock %}

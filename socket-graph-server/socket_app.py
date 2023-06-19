@@ -3,7 +3,7 @@ import errno
 import cryptography
 from cryptography.fernet import Fernet
 import time
-import protocol
+from protocol import *
 from sqlalchemy import create_engine, engine
 import threading
 import base64
@@ -38,7 +38,8 @@ directory = "images"
 if not os.path.exists(directory):
     os.makedirs(directory)
 
-def update_data():
+
+def update_data(client_socket, connection):
     global last_update_time
     message = "UPDATE|SOON"
     current_time = time.time()
@@ -46,10 +47,9 @@ def update_data():
         if last_update_time is None or current_time - last_update_time >= 120:
             # Two minutes have passed since last update, or it is the first data update
             last_update_time = current_time
-
             service = get_service()
-
             load_dotenv()
+
             sheet_id = os.environ.get('GOOGLE_SPREADSHEET_ID')
             sheet_name = os.environ.get('GOOGLE_SPREADSHEET_NAME')
 
@@ -93,34 +93,39 @@ def update_data():
             session.close()
             message = "UPDATE|UPDATED"
 
-    except:
+    except Exception as e:
         message = "UPDATE|ERROR"
         print("Sheet Update Error")
+        print("An error occurred:", str(e))
 
     finally:
-        full_message = protocol.get_message_with_length(message)
+        full_message = get_message_with_length(message)
 
-        encoded_message = protocol.encode_message(full_message)
+        encoded_message = connection.encode_message(full_message)
         client_socket.send(encoded_message)
         print(message)
 
 
-def send_chart_to_client(client_socket, team_num, query):
+def send_chart_to_client(client_socket, connection, team_num, query):
     filename = generate_filename(team_num, query)
     print("filename = " + filename)
     message = "UPLOAD|ERROR"  # IN CASE OF AN ERROR
     try:
-        create_graph(filename, team_num, query)
-        message = protocol.create_chart_send_message(filename)
+        status = create_graph(filename, team_num, query)
+        message = create_chart_send_message(filename, status)
 
     finally:
-        full_message = protocol.get_message_with_length(message)
+        full_message = get_message_with_length(message)
 
-        encoded_message = protocol.encode_message(full_message)
+        encoded_message = connection.encode_message(full_message)
         client_socket.sendall(encoded_message)
+        print("GRAPH SENT:", filename)
 
 
 def handle_client_connection(client_socket):
+    connection = Connection()
+    connection.create_connection_with_client(client_socket)
+
     while True:
         try:
             encrypted_data = client_socket.recv(1024)  # Receive the rest of the encrypted data
@@ -128,24 +133,28 @@ def handle_client_connection(client_socket):
             if not encrypted_data:
                 break
 
-            message = protocol.decode_message(encrypted_data)
+            message = connection.decode_message(encrypted_data)
             message = message.split("|", 3)
             print('Decrypted message:', message)
 
-            if message[1] not in protocol.POSSIBLE_MESSAGES:
+            if message[1] not in POSSIBLE_MESSAGES:
                 print("Attempted non existing command")
                 client_socket.close()
                 break
 
             if message[1] == "UPDATE":
-                update_data()
+                update_data(client_socket, connection)
+
+                client_socket.close()
+                break
 
             if message[1] == "CHART":
                 team_num = message[2]
                 query = message[3]
-                send_chart_to_client(client_socket, team_num, query)
+                send_chart_to_client(client_socket, connection, team_num, query)
 
-            break
+                client_socket.close()
+                break
 
         except socket.error as e:
             if e.errno == errno.WSAENOTSOCK:  # Check if the error is due to not a socket
@@ -163,14 +172,13 @@ if __name__ == '__main__':
     print('Server started. Listening for connections...')
     while True:
         try:
-            client_socket, address = server.accept()
+            client_s, address = server.accept()
             print('Client connected:', address)
-            protocol.create_connection(client_socket)
+            print("TRYING TO ATTEMPT CONNECTION")
 
-            client_thread = threading.Thread(target=handle_client_connection, args=(client_socket,))
+            client_thread = threading.Thread(target=handle_client_connection, args=(client_s,))
             client_thread.start()
 
         except KeyboardInterrupt:
             s.close()
             break
-
